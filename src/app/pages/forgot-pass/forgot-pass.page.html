@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button color="primary" routerLink="/login">Log in</ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark">
+  <h1>Reset your<br />Password</h1>
+
+  <form class="form">    
+    <app-input label="Enter your email"></app-input>    
+    <ion-button expand="block" shape="round">Reset</ion-button>
+  </form>
+
+  <p>Please, verify your email box, <br />you should receive a new password.</p>
+</ion-content>

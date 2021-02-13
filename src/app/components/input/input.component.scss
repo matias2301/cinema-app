@@ -1,0 +1,27 @@
+ion-item {
+    border: 2px solid #ffffff;
+    border-radius: 50px;
+    height: 50px;
+    box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.08);
+    --highlight-height: 0px;
+    --background: transparent;
+  
+    ion-input {
+      font-size: 16px;        
+      // --padding-top: 15px;
+      // --padding-bottom: 15px;
+      text-align: center;
+      --padding-start: 5px;
+      --color: #ffffff;
+    }
+  
+    // a {
+    //   font-size: 17px;
+    //   letter-spacing: 0.5px;
+    //   text-decoration: none;
+    // }
+  }
+
+  ion-item.item-has-focus > ion-label{
+    color: #2557c4 !important;
+  }
