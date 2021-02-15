@@ -22,7 +22,7 @@ ion-toolbar {
       padding-left: 30px;
       padding-right: 30px;
   
-      ion-button {
+      .submit-btn {
         margin-top: 35px;
         height: 48px;
         font-size: 18px;
@@ -38,4 +38,35 @@ ion-toolbar {
       color: #b6b6b6;
       margin-top: 40px;
     }
+  }
+
+  .error-message {
+    color: red;
+    margin-left: 1rem;
+  }
+  .label-light {
+    color: white;
+  }
+  .label-error {
+    color: red;
+  }
+
+  ion-item {
+    border: 2px solid #ffffff;
+    border-radius: 50px;
+    height: 50px;
+    box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.08);    
+    --highlight-height: 0px;
+    --background: transparent;
+  
+    ion-input {
+      font-size: 16px;
+      text-align: center;        
+      --color: #ffffff;
+      --padding-top: 0;
+    }
+  }
+
+  ion-item.item-has-focus > ion-label{
+    color: #2557c4 !important;
   }

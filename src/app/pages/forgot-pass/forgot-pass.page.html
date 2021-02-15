@@ -2,7 +2,7 @@
   <ion-toolbar color="dark">
 
     <ion-buttons slot="start">
-      <ion-button color="primary">
+      <ion-button color="primary" routerLink="/login">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,9 +17,49 @@
 <ion-content color="dark">
   <h1>Reset your<br />Password</h1>
 
-  <form class="form">    
-    <app-input label="Enter your email"></app-input>    
-    <ion-button expand="block" shape="round">Reset</ion-button>
+  <form
+    class="form"
+    #form="ngForm"
+    (ngSubmit)="onSubmit( form )"
+  >    
+    <!-- <app-input
+      label="Enter your email"
+      type="email"      
+    ></app-input>     -->
+
+    <ion-item class="ion-margin-bottom">
+
+      <ion-label        
+        [ngClass]="{'label-error': email.invalid && email.touched, 'label-light': !(email.invalid && email.touched)}"
+        position="floating"
+      >
+        Enter your email
+      </ion-label>
+      <ion-input
+        type="email"
+        name="email"
+        [ngModel]="form.email"
+        [class.error]="email.invalid && email.touched"
+        required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        #email="ngModel"
+      ></ion-input>
+    </ion-item>
+
+    <ng-container *ngIf="email.invalid && email.touched">
+      <ion-text class="error-message">
+        <ion-icon name="information-circle-outline"></ion-icon> This field is required
+      </ion-text>
+    </ng-container>    
+    
+    <ion-button
+      type="submit"
+      class="submit-btn"
+      expand="block"
+      shape="round"
+      
+    >Reset</ion-button>
+
   </form>
 
   <p>Please, verify your email box, <br />you should receive a new password.</p>

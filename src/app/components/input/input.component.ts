@@ -8,10 +8,12 @@ import { Component, Input } from '@angular/core';
 export class InputComponent {
 
   @Input() type: string;
-  @Input() placeholder: string;
+  // @Input() placeholder: string;
   @Input() iconName?: string;
   @Input() label: string;
+  @Input() name: string;
+  @Input() formControlName: string;
 
-  constructor() { }  
+  constructor() { } 
 
 }

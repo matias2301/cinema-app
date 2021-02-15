@@ -1,50 +1,93 @@
-// ion-item{
-//     --background: #3880ff;
-//     --color: #fff;
-// }
-
-// ion-button{
-//     --background: #062f77;
-// }
-
 ion-toolbar {    
-  
-    ion-button {
-      text-transform: initial;
-      font-size: 17px;
-    }
+
+  ion-button {
+    text-transform: initial;
+    font-size: 17px;
   }
-  
-  ion-content {
-    --background: #f5f5f3;
-  
-    h1 {
-      text-align: center;
-      font-weight: 700;
-      font-size: 26px;
-      color: #ffffff;
-      margin-bottom: 15%;
-    }
-  
-    .form {
-      margin-top: 15%;
-      padding-left: 30px;
-      padding-right: 30px;
-  
-      ion-button {
-        margin-top: 35px;
-        height: 48px;
-        font-size: 18px;
-        text-transform: initial;
-        border-radius: 50px;
-        box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.05);
-        --box-shadow: none;
-      }
-    }
-  
-    p {
-      text-align: center;
-      color: #b6b6b6;
-      margin-top: 40px;
-    }
+}
+
+ion-content {
+  h1 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 15%;
+  }  
+  p {
+    text-align: center;
+    color: #b6b6b6;
+    margin-top: 40px;
   }
+}
+
+.main-container {
+  display: flex;  
+  flex-direction: column;
+  justify-items: space-around;
+  align-items: center;  
+  text-align: center;  
+  height: 100%;
+  flex: 1;
+}
+
+.form-container {
+  padding: 0 1rem;
+  flex: 1;
+}
+
+.error-container {
+  background-color: #ee4b4b;
+  width: 95%;
+  text-align: center;
+  padding: 1rem;
+  margin: .5rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+}
+  
+.form {
+  margin-top: 15%;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.error-message {
+  color: red;  
+}
+.label-light {
+  color: white;
+}
+.label-error {
+  color: red;
+}
+
+ion-item {
+  border: 2px solid #ffffff;
+  border-radius: 50px;
+  height: 50px;
+  box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.08);    
+  --highlight-height: 0px;
+  --background: transparent;
+
+  ion-input {
+    font-size: 16px;
+    text-align: center;        
+    --color: #ffffff;
+    --padding-top: 0;
+  }
+}
+
+ion-item.item-has-focus > ion-label{
+  color: #2557c4 !important;
+}
+
+ion-button {
+  margin-top: 30px;
+  height: 42px;
+  font-size: 18px;
+  text-transform: initial;
+  border-radius: 50px;
+  box-shadow: 1px 8px 8px 0px rgba(0, 0, 0, 0.05);
+  --box-shadow: none;
+}
