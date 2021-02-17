@@ -1,0 +1,5 @@
+<ng-content></ng-content>
+<a (click)="toggleShow()">
+   <ion-icon class="icon-eye" [hidden]="showPassword" name="eye-off-outline"></ion-icon>
+   <ion-icon class="icon-eye" [hidden]="!showPassword" name="eye-outline"></ion-icon>
+</a>
