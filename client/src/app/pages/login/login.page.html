@@ -1,9 +1,9 @@
 <ion-content class="animated" color="dark">
 
   <div class="main-container">
-    <div class="error-container">            
+    <div *ngIf="error" class="error-container">            
         <ion-text>
-          Something went wrong!
+          {{ msjError }}
         </ion-text>    
     </div>
 

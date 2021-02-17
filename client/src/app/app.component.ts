@@ -9,7 +9,8 @@
 //   constructor() {}
 // }
 import { Router } from '@angular/router';
-import { AuthenticationService } from './services/authentication.service';
+// import { AuthenticationService } from './services/authentication.service';
+import { AuthService } from './auth/auth.service';
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -40,7 +41,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authenticationService: AuthenticationService,
+    // private authenticationService: AuthenticationService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.initializeApp();
@@ -51,7 +53,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.authenticationService.authenticationState.subscribe(state => {
+      this.authService.authSubject.subscribe(state => {        
         if (state) {
           this.isLoggedIn = true;
         } else {
@@ -72,7 +74,7 @@ export class AppComponent {
   }
 
   logout(){
-    this.authenticationService.logout();
+    this.authService.logout();
   }
 
 }

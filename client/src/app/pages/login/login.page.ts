@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from  "@angular/router";
-import { AuthService } from '../../auth/auth.service';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,22 +13,22 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class LoginPage implements OnInit {
 
   validations_form: FormGroup;
+  error: boolean;
+  msjError: string;
 
   constructor(
               private authService: AuthService,
               private router: Router,
-              public formBuilder: FormBuilder
+              public formBuilder: FormBuilder,
+              private loadingController: LoadingController,                                     
+              public alertController: AlertController
              ){
               this.createForm();
               }
 
-  ngOnInit() {}  
-
-  // login(form){
-  //   this.authService.login(form.value).subscribe((res)=>{
-  //     this.router.navigateByUrl('home');
-  //   });
-  // }
+  ngOnInit() {
+    this.checkLoginState();
+  }  
 
   get username_valid() {
     return this.validations_form.get('email').invalid && (this.validations_form.get('email').dirty || this.validations_form.get('email').touched);
@@ -63,14 +64,54 @@ export class LoginPage implements OnInit {
     ],
   };
 
-  onSubmitLogin(){    
+  onSubmitLogin(values){    
 
     if( this.validations_form.invalid ){
       Object.values( this.validations_form.controls ).forEach( control => {
         control.markAsTouched();
       });
+    } else {      
+      const user = {        
+        email: values.email,
+        password: values.password
     }       
     
+    this.error = false;
+
+    this.loadingController.create({keyboardClose: true, message: 'Loggin In ...'})
+    .then(loadingEl => {
+      loadingEl.present(); // show loading
+
+      this.authService.login(user)
+        .subscribe((res) => {
+          if (res.isSuccess) {
+            this.showAlert(res.msg);
+            this.validations_form.reset();
+            this.router.navigateByUrl('home');
+          } 
+          loadingEl.dismiss(); // hide loading
+
+          }, ( err ) => {
+            loadingEl.dismiss();
+            this.error = true;
+            this.msjError = err.error.msg;
+            setTimeout(() => {
+              this.error = false;
+              this.msjError = '';
+            }, 3000);
+          }                        
+        );
+      });
+    }
+  }
+
+  // CHECK LOGIN STATE
+  checkLoginState(){
+    this.authService.authSubject.subscribe( state => {
+      if (state) {
+        this.router.navigateByUrl('home');
+      }
+    });
   }
 
   // GO TO REGISTER PAGE
@@ -84,5 +125,15 @@ export class LoginPage implements OnInit {
     this.validations_form.reset();
     this.router.navigateByUrl('forgot-pass');
   }
+
+  async showAlert(message) {
+    const alert = await this.alertController.create({
+      header: 'Welcome to Cinema App',
+      message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  } 
 
 }

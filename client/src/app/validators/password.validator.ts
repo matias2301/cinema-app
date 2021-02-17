@@ -4,7 +4,7 @@ export class PasswordValidator {
 
   // Inspired on: http://plnkr.co/edit/Zcbg2T3tOxYmhxs7vaAm?p=preview
   static areEqual(formGroup: FormGroup) {
-    let val;
+    let val: any;
     let valid = true;
 
     for (let key in formGroup.controls) {

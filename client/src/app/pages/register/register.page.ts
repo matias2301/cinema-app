@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from  "@angular/router";
-import { Platform, LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 
 import { PasswordValidator } from '../../validators/password.validator';
 
@@ -28,8 +28,7 @@ export class RegisterPage implements OnInit {
               private authService: AuthService,
               private router: Router,
               public formBuilder: FormBuilder,              
-              private loadingController: LoadingController,              
-              private plt: Platform,              
+              private loadingController: LoadingController,                                     
               public alertController: AlertController
              ) { 
               this.createForm();
@@ -127,45 +126,45 @@ export class RegisterPage implements OnInit {
         name: values.name,
         email: values.email,
         password: values.matching_passwords.password
-      }      
+    }      
       
-      // this.authenticationService.register(user);
-      this.error = false;
+    // this.authenticationService.register(user);
+    this.error = false;
 
-      this.loadingController.create({keyboardClose: true, message: 'Registering ...'})
-      .then(loadingEl => {
-        loadingEl.present(); // show loading
+    this.loadingController.create({keyboardClose: true, message: 'Registering ...'})
+    .then(loadingEl => {
+      loadingEl.present(); // show loading
 
-        this.authService.register(user)
-          .subscribe((res) => {
-            if (res.isSuccess) {
-              this.showAlert(`${res.msg} Please Log In`);
-              this.validations_form.reset();
-              this.router.navigateByUrl('login');
-            } 
-            loadingEl.dismiss(); // hide loading
+      this.authService.register(user)
+        .subscribe((res) => {
+          if (res.isSuccess) {
+            this.showAlert(`${res.msg} Please Log In`);
+            this.validations_form.reset();
+            this.router.navigateByUrl('login');
+          } 
+          loadingEl.dismiss(); // hide loading
 
-            }, ( err ) => {
-              loadingEl.dismiss();
-              this.error = true;
-              this.msjError = err.error.msg;
-              setTimeout(() => {
-                this.error = false;
-                this.msjError = '';
-              }, 3000);
-            }                        
-          );
-        });
+          }, ( err ) => {
+            loadingEl.dismiss();
+            this.error = true;
+            this.msjError = err.error.msg;
+            setTimeout(() => {
+              this.error = false;
+              this.msjError = '';
+            }, 3000);
+          }                        
+        );
+      });
     }
   }
 
   // CHECK LOGIN STATE
   checkLoginState(){
-    // this.authenticationService.authenticationState.subscribe( state => {
-    //   if (state) {
-    //     this.router.navigate(['list']);
-    //   }
-    // });
+    this.authService.authSubject.subscribe( state => {
+      if (state) {
+        this.router.navigateByUrl('home');
+      }
+    });
   }
 
   // GO TO LOGIN PAGE
@@ -176,8 +175,8 @@ export class RegisterPage implements OnInit {
 
   async showAlert(message) {
     const alert = await this.alertController.create({
-      header: 'Information Message',
-      message: message,
+      header: 'Successful register',
+      message,
       buttons: ['OK']
     });
 
