@@ -24,9 +24,13 @@
     "@ionic-native/splash-screen": "^5.31.1",
     "@ionic-native/status-bar": "^5.31.1",
     "@ionic/angular": "^5.5.2",
+    "@ionic/lab": "^3.2.10",
     "@ionic/storage": "^2.3.1",
+    "@types/faker": "^5.1.6",
     "cordova-plugin-splashscreen": "^6.0.0",
     "cordova-plugin-statusbar": "^2.4.3",
+    "faker": "^5.4.0",
+    "ionic-rating-component": "^1.1.6",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

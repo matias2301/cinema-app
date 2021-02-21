@@ -85,7 +85,14 @@ export class AuthService {
         });
     }
 
-    isLoggedIn() {
-      return this.authSubject.asObservable();
+    // isLoggedIn() {
+    //   return this.authSubject.asObservable();
+    // }
+
+    isAuthenticated() {
+      if (!this.authSubject.value) {
+        this.router.navigateByUrl('login');
+      }
+      return this.authSubject.value;
     }
 }

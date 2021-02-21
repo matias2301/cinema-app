@@ -1,9 +1,107 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>home</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>
+        Movies
+    </ion-title>
+
+    <ion-buttons slot="start">
+      <ion-button icon-only>
+        <ion-menu-button></ion-menu-button>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-buttons slot="end">
+      <ion-button icon-only>
+        <ion-icon slot="end" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content
+  color="dark"
+  [fullscreen]="true"
+>
+
+  <ion-list class="ion-no-padding">        
+
+    <!-- <ion-virtual-scroll [items]="dataList"> -->
+
+    <ion-item-sliding *ngFor="let movie of movies">
+      <ion-item (click)="onMovieClick( movie )" class="ion-no-padding" color="dark">
+
+        <ion-card>
+          <ion-grid fixed class="ion-no-padding">
+            <ion-row>
+              <ion-col size="6">                              
+                <ion-img [src]="movie.backdrop_path | noimage"></ion-img>
+              </ion-col>
+  
+              <ion-col size="6" class="colContent">
+
+                <ion-card-header>                  
+                  <ion-card-title>{{ movie.title }}</ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>
+                  {{movie.overview | slice:0:45}}
+                  <span *ngIf="movie.overview.length > 35">...</span>
+                </ion-card-content>
+
+                <div class="rate">
+                  <p>Rate</p>
+                  <ionic-rating-component #rating
+                    activeIcon = "star"
+                    defaultIcon = "star-outline"
+                    activeColor = "#eeee09" 
+                    defaultColor = "#282828"                    
+                    readonly="true"
+                    rating="{{(movie.vote_average / 2)}}"
+                    fontSize = "12px"                                        
+                  >
+                  <!-- (ratingChanged)="onRatingChange($event)" -->
+                  </ionic-rating-component>
+                </div>
+
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </ion-card>     
+
+      </ion-item>
+  
+      <ion-item-options style="margin-right: 15px !important;" side="end">
+        <ion-item-option class="optAdd" (click)="addFavourite(item)">
+          <ion-icon slot="top" name="create"></ion-icon>
+          Add
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+    <!-- </ion-virtual-scroll> -->
+  </ion-list>
+
+  <ion-fab    
+    vertical="bottom"
+    horizontal="end"    
+    slot="fixed"
+  >
+    <ion-badge color="danger">Go Up</ion-badge>
+    <ion-fab-button
+      closeIcon="Go Up"
+      size="small"
+      color="danger"
+      (click)="scrollToTop()"
+    >      
+      <ion-icon name="arrow-up-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

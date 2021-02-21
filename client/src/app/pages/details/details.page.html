@@ -1,0 +1,53 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+
+    <ion-buttons slot="start">
+      <ion-button (click)="onBack()" icon-only>
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>    
+    
+    <ion-buttons slot="end">
+      <ion-button icon-only>
+        <ion-icon slot="end" name="add-outline"></ion-icon>        
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark" *ngIf="movie">
+  <ion-grid class="content">
+    <ion-row class="title">
+      <h5 class="ion-no-margin">{{ movie.title }}</h5>
+    </ion-row>
+    <ion-row class="row-poster">
+      <ion-img class="poster" [src]="movie.backdrop_path | noimage" [alt]="movie.title"></ion-img>
+    </ion-row>
+    <ion-row>
+      <ion-col class="rate">        
+          <p>Rate</p>
+          <ionic-rating-component #rating
+            activeIcon = "star"
+            defaultIcon = "star-outline"
+            halfIcon = "star-half"
+            activeColor = "#eeee09" 
+            defaultColor = "#eeee09"
+            halfStar = "true"
+            readonly="true"
+            rating="{{(movie.vote_average / 2)}}"
+            fontSize = "15px"                                        
+          >
+          <!-- (ratingChanged)="onRatingChange($event)" -->
+          </ionic-rating-component>        
+      </ion-col>
+      <ion-col class="release">
+        <span>{{ movie.release_date | date:'dd/MM/Y' }}</span>        
+      </ion-col>
+    </ion-row>
+    <ion-row class="overview">
+      <p>{{ movie.overview }}</p>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

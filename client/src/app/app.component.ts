@@ -1,16 +1,5 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-root',
-//   templateUrl: 'app.component.html',
-//   styleUrls: ['app.component.scss'],
-// })
-// export class AppComponent {
-//   constructor() {}
-// }
 import { Router } from '@angular/router';
-// import { AuthenticationService } from './services/authentication.service';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -31,17 +20,16 @@ export class AppComponent {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
+      title: 'My Favourites',
+      url: '/favourites',
       icon: 'list'
-    }
+    },
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    // private authenticationService: AuthenticationService,
+    private statusBar: StatusBar,    
     private authService: AuthService,
     private router: Router
   ) {

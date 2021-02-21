@@ -1,0 +1,99 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>
+        Favourites
+    </ion-title>
+
+    <ion-buttons slot="start">
+      <ion-button icon-only>
+        <ion-menu-button></ion-menu-button>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-buttons slot="end">
+      <ion-button icon-only>
+        <ion-icon slot="end" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark" [fullscreen]="true">
+
+  <ion-list class="ion-no-padding">    
+    <!-- style="padding:0px !important;" -->
+
+    <ion-virtual-scroll [items]="dataList">
+
+    <ion-item-sliding *virtualItem="let item">
+      <ion-item class="ion-no-padding" color="dark">
+
+        <!-- <ion-avatar slot="start">
+          <img src="assets/no-image.jpg">       
+        </ion-avatar>
+        <ion-label>
+          <h2>{{item.name}}</h2>
+          <h3>{{item.address}}</h3>
+          <p>{{item.intro}}</p>        
+        </ion-label> -->
+
+        <ion-card>
+          <ion-grid class="ion-no-padding">
+            <ion-row>
+              <ion-col size="6" class="ion-no-padding">              
+                <!-- <img src="assets/no-image.jpg" /> -->
+                <ion-img src="assets/no-image.jpg"></ion-img>
+              </ion-col>
+  
+              <ion-col size="6" class="ion-no-padding">
+                <ion-card-header>                  
+                  <ion-card-title>The Avengers</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  {{item.intro | slice:0:50}}
+                  <span *ngIf="item.intro.length > 50">...</span>
+
+                  <p class="rate">Rate</p>
+                </ion-card-content>
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </ion-card>     
+
+      </ion-item>  
+
+      <ion-item-options style="margin-left: 15px !important;" side="start">
+        <ion-item-option class="optDelete" (click)="deleteMovie(item)" color="danger">
+          <ion-icon slot="top" name="trash"></ion-icon>
+          Delete        
+        </ion-item-option>      
+      </ion-item-options>
+  
+      <ion-item-options style="margin-right: 15px !important;" side="end">
+        <ion-item-option class="optEdit" (click)="modifyMovie(item)" color="success">
+          <ion-icon slot="top" name="create"></ion-icon>
+          Edit
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
+    </ion-virtual-scroll>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button
+      (click)="addFavourite()"
+      color="light"
+    >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

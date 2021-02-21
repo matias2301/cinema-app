@@ -3,7 +3,7 @@ import { Router } from  "@angular/router";
 import { LoadingController, AlertController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -94,7 +94,7 @@ export class LoginPage implements OnInit {
           }, ( err ) => {
             loadingEl.dismiss();
             this.error = true;
-            this.msjError = err.error.msg;
+            this.msjError = err.error.msg || 'Something went wrong!';
             setTimeout(() => {
               this.error = false;
               this.msjError = '';

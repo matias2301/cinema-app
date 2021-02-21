@@ -1,0 +1,36 @@
+.content {
+    padding: 0 15px;
+}
+.title {
+    margin-bottom: 10px;
+    h5 {
+        font-size: 25px;
+    }
+}
+.row-poster {
+    margin-bottom: 5px;
+}
+.rate {
+    p {
+        font-size: 15px;               
+        margin-bottom: 0; 
+    }
+}
+.release {
+    align-self: center;
+    span {
+        float: right;        
+    }
+}
+.overview {
+    padding: 0 3px;
+    p {
+        text-align: center;
+        font-size: 15px;
+        line-height: 1.5em;
+        color: #e2e2e2;
+    }
+}
+ion-img::part(image) {
+    border-radius: 10px;
+}

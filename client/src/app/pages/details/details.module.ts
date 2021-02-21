@@ -4,21 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { DetailsPageRoutingModule } from './details-routing.module';
 
-import { HomePage } from './home.page';
+import { DetailsPage } from './details.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { IonicRatingComponentModule,  } from 'ionic-rating-component';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,    
+    FormsModule,
     IonicModule,
     PipesModule,
-    IonicRatingComponentModule,    
-    HomePageRoutingModule,    
+    IonicRatingComponentModule, 
+    DetailsPageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [DetailsPage]
 })
-export class HomePageModule {}
+export class DetailsPageModule {}

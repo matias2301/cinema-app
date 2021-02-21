@@ -3,12 +3,11 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router } from  "@angular/router";
 import { LoadingController, AlertController } from '@ionic/angular';
 
+//Validators
 import { PasswordValidator } from '../../validators/password.validator';
 
 //Services
-import { AuthService } from '../../auth/auth.service';
-// import { AuthenticationService } from '../../services/authentication.service';
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -23,8 +22,7 @@ export class RegisterPage implements OnInit {
   error: boolean;
   msjError: string;
 
-  constructor(
-              // private authenticationService: AuthenticationService,
+  constructor(              
               private authService: AuthService,
               private router: Router,
               public formBuilder: FormBuilder,              
@@ -127,8 +125,7 @@ export class RegisterPage implements OnInit {
         email: values.email,
         password: values.matching_passwords.password
     }      
-      
-    // this.authenticationService.register(user);
+    
     this.error = false;
 
     this.loadingController.create({keyboardClose: true, message: 'Registering ...'})
@@ -147,7 +144,7 @@ export class RegisterPage implements OnInit {
           }, ( err ) => {
             loadingEl.dismiss();
             this.error = true;
-            this.msjError = err.error.msg;
+            this.msjError = err.error.msg || 'Something went wrong!';
             setTimeout(() => {
               this.error = false;
               this.msjError = '';
