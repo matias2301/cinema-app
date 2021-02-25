@@ -7,7 +7,7 @@ It includes:
 - [x] Login
 - [x] Register
 - [ ] Forgot Password ( pending )
-- [ ] SideMenu
+- [x] SideMenu
 - [x] Fetch Movies information from TMDB api
 - [x] CRUD favourites movies, once added as favourite from TMDB
 - [ ] Search movies from home list ( pending )
