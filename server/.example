@@ -1,0 +1,2 @@
+DB_MONGO=mongodb+srv://user:pass@cluster0.anbnr.mongodb.net/mongoDB
+SECRET_WORD=my_secret_word

@@ -19,7 +19,7 @@ export class MoviesService {
 
   get params() {
     return {
-      api_key: 'ca71ff82581ab22a983b7a0987424500',
+      api_key: 'ca71ff82581ab22a983b7a0987424500', //You may need to change this api_key in the future
       language: 'es-ES',
       page: this.moviePage.toString()
     }
