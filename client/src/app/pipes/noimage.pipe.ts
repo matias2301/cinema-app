@@ -6,8 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NoimagePipe implements PipeTransform {
 
   transform(image: string): string {
+    
     if ( image ) {
-      return `https://image.tmdb.org/t/p/w500${ image }`;
+      if(image.split('/')[0] === 'assets') {
+        return image;
+      } else {
+        return `https://image.tmdb.org/t/p/w500${ image }`;
+      }
     } else {
       return './assets/no-image.jpg';
     }

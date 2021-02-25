@@ -26,6 +26,7 @@ export interface Movie {
     vote_average:      number;
     overview:          string;
     release_date:      Date;
+    _id:               number  
 }
 
 export enum OriginalLanguage {

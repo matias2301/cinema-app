@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap, map, catchError } from 'rxjs/operators';
-import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -38,9 +38,9 @@ export class AuthService {
       });
     }
 
-    register(user: User): Observable<any> {
+    register(user: User): Observable<AuthResponse> {
       return this.httpClient
-      .post<any>(`${this.AUTH_SERVER_ADDRESS}/api/users`, user)
+      .post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/api/users`, user)
       .pipe(
         map( res => res ),
         // catchError( err => {
@@ -48,27 +48,17 @@ export class AuthService {
         //   return throwError(err);
         // })
       )
-        // tap(async (res:  AuthResponse ) => {          
-          // if (res.user) {
-          //   await this.storage.set("ACCESS_TOKEN", res.user.access_token);
-          //   await this.storage.set("EXPIRES_IN", res.user.expires_in);
-          //   this.authSubject.next(true);
-          // }
-      //   })
-      
-      // );
     }
 
-    login(user: User): Observable<any> {
+    login(user: User): Observable<AuthResponse> {
       return this.httpClient
-      .post<any>(`${this.AUTH_SERVER_ADDRESS}/api/auth`, user)
+      .post<AuthResponse>(`${this.AUTH_SERVER_ADDRESS}/api/auth`, user)
       .pipe(
         map( res => {          
           if (res.isSuccess) {            
             this.storage.set(ACCESS_TOKEN, res.token).then(() => {
               this.authSubject.next(true);
-            });
-            // this.storage.set("EXPIRES_IN", res.user.expires_in);            
+            });                   
           }  
           return res 
         }),

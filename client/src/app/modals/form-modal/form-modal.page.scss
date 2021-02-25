@@ -1,0 +1,64 @@
+ion-content {    
+    margin: 0 auto;    
+}
+ion-item {    
+    margin: 0 auto;
+}
+ion-input {
+    text-align: right;
+    color: #e2e2e2;
+}
+ion-textarea {
+    color: #e2e2e2;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;    
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+ion-datetime {    
+    text-align: right;
+    color: #e2e2e2;
+}
+.error-message {
+    color: #cf322c;    
+    margin: 15px auto;
+}
+.fileInput {
+    width: 300px;
+    height: 60px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+}
+.fileLabel {
+    width: 100%;
+    margin: 5px 0 0 3px;
+    color: #717171;
+    background-color: white;
+    display: inline-block;
+    cursor: pointer;
+    padding: .5em 1em;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: -1;
+}
+.rate {
+    font-size: 17px;               
+    margin-bottom: 18px;    
+}
+.rate-release {
+    display: flex;   
+    align-items: center;
+    margin-left: 5px;
+}
+.previousImg {
+    margin: 5px auto;
+    width: 50%;
+    height: 50%;
+}
+ion-img::part(image) {
+    border-radius: 10px;
+}

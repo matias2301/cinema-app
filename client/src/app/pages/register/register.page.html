@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="animated" color="dark">
+<ion-content color="dark">
   <div class="main-container">
     <div *ngIf="error" class="error-container">            
         <ion-text>
@@ -39,8 +39,9 @@
             <!-- Input name -->
             <ion-item class="ion-margin-bottom">
               <ion-label
-              [ngClass]="{'label-error': name_valid, 'label-light': !name_valid}"
+                [ngClass]="{'label-error': name_valid, 'label-light': !name_valid}"
                 position="floating"
+                mode="md"
               >
                 Name
               </ion-label>
@@ -50,24 +51,28 @@
               ></ion-input>                 
             </ion-item>
 
-            <ng-container *ngFor="let validation of validation_messages.name">
-              <ion-text
-                style="display:block;float: none; width: 100%"
-                class="error-message"
-                *ngIf="name_valid"
-              >
-                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
-              </ion-text>
-            </ng-container>
+            <div
+              *ngIf="name_valid"
+              class="errors-container"
+            >
+              <ng-container *ngFor="let validation of validation_messages.name">
+                <ion-text                  
+                  class="error-message"                  
+                >
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </ion-text>
+              </ng-container>
+            </div>
             <!-- End Input name -->
 
             <!-- Input username -->
             <ion-item class="ion-margin-bottom">
               <ion-label
-              [ngClass]="{'label-error': username_valid, 'label-light': !username_valid}"
+                [ngClass]="{'label-error': username_valid, 'label-light': !username_valid}"
                 position="floating"
+                mode="md"
               >
-                UserName
+                Email
               </ion-label>
               <ion-input
                 type="text"            
@@ -75,28 +80,32 @@
               ></ion-input>                 
             </ion-item>
 
-            <ng-container *ngFor="let validation of validation_messages.email">
-              <ion-text
-                style="display:block;float: none; width: 100%"
-                class="error-message"
-                *ngIf="username_valid"
-              >
-                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
-              </ion-text>
-            </ng-container>
+            <div
+              *ngIf="username_valid"
+              class="errors-container"
+            >
+              <ng-container *ngFor="let validation of validation_messages.email">
+                <ion-text                  
+                  class="error-message"                  
+                >
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </ion-text>
+              </ng-container>
+            </div>
             <!-- End Input username -->
           </div>
 
           <div formGroupName="matching_passwords">
             <!-- Input password -->
-            <ion-item class="ion-margin-bottom">
-              <app-show-hide-pass>
-                <ion-label
+            <ion-item class="ion-margin-bottom">              
+              <ion-label
                 [ngClass]="{'label-error': password_valid, 'label-light': !password_valid}"
-                  position="floating"
-                >
-                  Password
-                </ion-label>
+                position="floating"
+                mode="md"
+              >
+                Password
+              </ion-label>
+              <app-show-hide-pass>
                 <ion-input
                   type="password"            
                   formControlName="password"
@@ -104,26 +113,30 @@
               </app-show-hide-pass>
             </ion-item>
 
-            <ng-container *ngFor="let validation of validation_messages.password">
-              <ion-text
-                style="display:block;float: none; width: 100%"
-                class="error-message"
-                *ngIf="password_valid"
-              >
-                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
-              </ion-text>
-            </ng-container>
-            <!-- End Input Password -->
-
-            <!-- Input Confirm password -->
-            <ion-item class="ion-margin-bottom">
-              <app-show-hide-pass>
-                <ion-label
-                [ngClass]="{'label-error': confirmPass_valid, 'label-light': !confirmPass_valid}"
-                  position="floating"
+            <div
+              *ngIf="password_valid"
+              class="errors-container"           
+            >
+              <ng-container *ngFor="let validation of validation_messages.password">
+                <ion-text                  
+                  class="error-message"                  
                 >
-                  Confirm Password
-                </ion-label>
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </ion-text>
+              </ng-container>
+            </div>
+              <!-- End Input Password -->
+
+              <!-- Input Confirm password -->
+            <ion-item class="ion-margin-bottom">              
+              <ion-label
+                [ngClass]="{'label-error': confirmPass_valid, 'label-light': !confirmPass_valid}"
+                position="floating"
+                mode="md"
+              >
+                Confirm Pass
+              </ion-label>
+              <app-show-hide-pass>
                 <ion-input
                   type="password"            
                   formControlName="confirmPass"
@@ -131,31 +144,33 @@
               </app-show-hide-pass>
             </ion-item>
 
-            <ng-container *ngFor="let validation of validation_messages.confirmPass">
-              <ion-text
-                style="display:block;float: none; width: 100%"
-                class="error-message"
-                *ngIf="confirmPass_valid"
-              >
-                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
-              </ion-text>
-            </ng-container>
-            <!-- End Input Confirm Password -->
-          </div>
+            <div
+              *ngIf="confirmPass_valid"
+              class="errors-container"
+            >
+              <ng-container *ngFor="let validation of validation_messages.confirmPass">
+                <ion-text                
+                  class="error-message"                
+                >
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </ion-text>
+              </ng-container>
+              <!-- End Input Confirm Password -->
+            </div>
 
-          <div>
-            <ng-container *ngFor="let validation of validation_messages.matching_passwords">
-              <ion-text              
-                style="display:block;float: none; width: 100%"
-                class="error-message"
-                *ngIf="matchingPass_valid"
-              >
-                <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
-              </ion-text>
-            </ng-container>
+            <div
+              *ngIf="matchingPass_valid"
+              class="errors-container" 
+            >
+              <ng-container *ngFor="let validation of validation_messages.matching_passwords">
+                <ion-text                
+                  class="error-message"                
+                >
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+                </ion-text>
+              </ng-container>
+            </div>
           </div>
-          <!-- *ngIf="validations_form.get('matching_passwords').hasError(validation.type) && (validations_form.get('matching_passwords').get('confirm_password').dirty || validations_form.get('matching_passwords').get('confirm_password').touched)" -->
-          
 
           <!-- Buttom -->
             <ion-button
@@ -168,7 +183,7 @@
         </form>
         <!-- End Form -->
                 
-        <p>By pressing 'Join Us' you agree to <br />our terms & conditions.</p>    
+        <p>By pressing 'Create' you agree to our terms & conditions.</p>    
       
     </div>
   </div>

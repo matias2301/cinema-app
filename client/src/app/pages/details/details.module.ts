@@ -9,6 +9,8 @@ import { DetailsPageRoutingModule } from './details-routing.module';
 import { DetailsPage } from './details.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { IonicRatingComponentModule,  } from 'ionic-rating-component';
+import { FormModalPageModule } from 'src/app/modals/form-modal/form-modal.module';
+
 
 @NgModule({
   imports: [
@@ -17,8 +19,9 @@ import { IonicRatingComponentModule,  } from 'ionic-rating-component';
     IonicModule,
     PipesModule,
     IonicRatingComponentModule, 
-    DetailsPageRoutingModule
+    DetailsPageRoutingModule,
+    FormModalPageModule
   ],
-  declarations: [DetailsPage]
+  declarations: [DetailsPage],  
 })
 export class DetailsPageModule {}

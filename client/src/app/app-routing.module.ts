@@ -34,7 +34,11 @@ const routes: Routes = [
     path: 'details/:id',
     canActivate: [AuthGuard],
     loadChildren: () => import('./pages/details/details.module').then( m => m.DetailsPageModule)
+  },  {
+    path: 'form-modal',
+    loadChildren: () => import('./modals/form-modal/form-modal.module').then( m => m.FormModalPageModule)
   },
+
 ];
 
 @NgModule({

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from  "@angular/router";
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
+import { AlertsService } from '../../services/alerts.service';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,10 @@ export class LoginPage implements OnInit {
 
   constructor(
               private authService: AuthService,
+              private alertsService: AlertsService,
               private router: Router,
               public formBuilder: FormBuilder,
-              private loadingController: LoadingController,                                     
-              public alertController: AlertController
+              private loadingController: LoadingController,                                                   
              ){
               this.createForm();
               }
@@ -31,11 +32,11 @@ export class LoginPage implements OnInit {
   }  
 
   get username_valid() {
-    return this.validations_form.get('email').invalid && (this.validations_form.get('email').dirty || this.validations_form.get('email').touched);
+    return this.validations_form.get('email').invalid && (!this.validations_form.get('email').dirty && this.validations_form.get('email').touched);
   }
 
   get password_valid() {
-    return this.validations_form.get('password').invalid && (this.validations_form.get('password').dirty || this.validations_form.get('password').touched);
+    return this.validations_form.get('password').invalid && (!this.validations_form.get('password').dirty && this.validations_form.get('password').touched);
   }
 
   createForm() {
@@ -85,7 +86,7 @@ export class LoginPage implements OnInit {
       this.authService.login(user)
         .subscribe((res) => {
           if (res.isSuccess) {
-            this.showAlert(res.msg);
+            this.alertsService.alertToast(res.msg, 'success');
             this.validations_form.reset();
             this.router.navigateByUrl('home');
           } 
@@ -125,15 +126,4 @@ export class LoginPage implements OnInit {
     this.validations_form.reset();
     this.router.navigateByUrl('forgot-pass');
   }
-
-  async showAlert(message) {
-    const alert = await this.alertController.create({
-      header: 'Welcome to Cinema App',
-      message,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  } 
-
 }

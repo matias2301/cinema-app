@@ -5,10 +5,22 @@
       <ion-button (click)="onBack()" icon-only>
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
-    </ion-buttons>    
+    </ion-buttons>
     
-    <ion-buttons slot="end">
-      <ion-button icon-only>
+    <ion-buttons *ngIf="edit===true" slot="end">
+      <ion-button (click)="deleteFav(movie)" icon-only>
+        <ion-icon slot="end" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons *ngIf="edit===true" slot="end">
+      <ion-button (click)="editFavourite(movie)" icon-only>
+        <ion-icon slot="end" name="pencil"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-buttons *ngIf="edit===false" slot="end">
+      <ion-button (click)="addFavourite(movie)" icon-only>
         <ion-icon slot="end" name="add-outline"></ion-icon>        
       </ion-button>
     </ion-buttons>
@@ -34,11 +46,11 @@
             activeColor = "#eeee09" 
             defaultColor = "#eeee09"
             halfStar = "true"
-            readonly="true"
+            readonly="{{!edit}}"
             rating="{{(movie.vote_average / 2)}}"
-            fontSize = "15px"                                        
-          >
-          <!-- (ratingChanged)="onRatingChange($event)" -->
+            fontSize = "15px"
+            (ratingChanged)="onRatingChange($event, movie)"
+          >          
           </ionic-rating-component>        
       </ion-col>
       <ion-col class="release">
@@ -49,5 +61,5 @@
       <p>{{ movie.overview }}</p>
     </ion-row>
 
-  </ion-grid>
+  </ion-grid>  
 </ion-content>

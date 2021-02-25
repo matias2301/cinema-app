@@ -3,7 +3,9 @@ export interface AuthResponse {
         id: number,
         name: string,
         email: string,
-        access_token: string,
-        expires_in: number,        
-    },    
+        // expires_in: number,       
+    },
+    isSuccess: boolean,
+    token: string,
+    msg: string,
 }

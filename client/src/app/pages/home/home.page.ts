@@ -1,8 +1,12 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonInfiniteScroll, IonVirtualScroll } from '@ionic/angular';
-import { IonContent } from '@ionic/angular';
+import { IonContent, IonItemSliding } from '@ionic/angular';
+
 import { MoviesService } from '../../services/movies.service';
+import { AlertsService } from '../../services/alerts.service';
+import { FavouritesService } from '../../services/favourites.service';
+
 import { Movie } from '../../interfaces/movie-response';
 
 @Component({
@@ -12,7 +16,7 @@ import { Movie } from '../../interfaces/movie-response';
 })
 export class HomePage implements OnInit {
 
-  movies: Movie[] = [];  
+  movies: Movie[] = [];
 
   @ViewChild(IonContent) content: IonContent;
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
@@ -20,6 +24,8 @@ export class HomePage implements OnInit {
   
   constructor(
     private moviesService: MoviesService,
+    private alertsService: AlertsService,
+    private favouritesService: FavouritesService,
     private router: Router
   ) { }
 
@@ -58,13 +64,30 @@ export class HomePage implements OnInit {
   }
 
   onMovieClick( movie: Movie ) {
-    this.router.navigate(['/details', movie.id ]);
+    this.router.navigate(['/details', movie.id, movie ]);
   }
 
   scrollToTop() {
     this.content.scrollToTop(400);
   }
 
-}
+  addFavourite( movie: Movie, slidingItem: IonItemSliding ) {
+    const fav = {
+      title: movie.title,
+      overview: movie.overview,
+      vote_average: movie.vote_average,
+      release_date: movie.release_date,
+      backdrop_path: movie.backdrop_path
+    }
+    
+    this.favouritesService.addFavourite(fav)
+      .subscribe( res => {          
+        this.alertsService.alertToast(res.msg, 'success')
+          .then(() => slidingItem.close());
 
-// api key theMovieDB ca71ff82581ab22a983b7a0987424500
+      }, (err) => {
+        this.alertsService.alertToast('Something went wrong', 'error');
+      });    
+  }
+
+}

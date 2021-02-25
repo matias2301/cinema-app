@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from  "@angular/router";
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 //Validators
 import { PasswordValidator } from '../../validators/password.validator';
 
 //Services
 import { AuthService } from '../../services/auth.service';
+import { AlertsService } from '../../services/alerts.service';
 
 @Component({
   selector: 'app-register',
@@ -24,10 +25,10 @@ export class RegisterPage implements OnInit {
 
   constructor(              
               private authService: AuthService,
+              private alertsService: AlertsService,
               private router: Router,
               public formBuilder: FormBuilder,              
-              private loadingController: LoadingController,                                     
-              public alertController: AlertController
+              private loadingController: LoadingController
              ) { 
               this.createForm();
              }
@@ -37,19 +38,19 @@ export class RegisterPage implements OnInit {
   }
 
   get name_valid() {
-    return this.validations_form.get('name').invalid && (this.validations_form.get('name').dirty || this.validations_form.get('name').touched);
+    return this.validations_form.get('name').invalid && (!this.validations_form.get('name').dirty && this.validations_form.get('name').touched);
   }
 
   get username_valid() {
-    return this.validations_form.get('email').invalid && (this.validations_form.get('email').dirty || this.validations_form.get('email').touched);
+    return this.validations_form.get('email').invalid && (!this.validations_form.get('email').dirty && this.validations_form.get('email').touched);
   }
 
   get password_valid() {
-    return this.validations_form.get('matching_passwords').get('password').invalid && (this.validations_form.get('matching_passwords').get('password').dirty || this.validations_form.get('matching_passwords').get('password').touched);
+    return this.validations_form.get('matching_passwords').get('password').invalid && (!this.validations_form.get('matching_passwords').get('password').dirty && this.validations_form.get('matching_passwords').get('password').touched);
   }
 
   get confirmPass_valid() {
-    return this.validations_form.get('matching_passwords').get('confirmPass').invalid && (this.validations_form.get('matching_passwords').get('confirmPass').dirty || this.validations_form.get('matching_passwords').get('confirmPass').touched);
+    return this.validations_form.get('matching_passwords').get('confirmPass').invalid && (!this.validations_form.get('matching_passwords').get('confirmPass').dirty && this.validations_form.get('matching_passwords').get('confirmPass').touched);
   }
 
   get matchingPass_valid() {
@@ -134,8 +135,8 @@ export class RegisterPage implements OnInit {
 
       this.authService.register(user)
         .subscribe((res) => {
-          if (res.isSuccess) {
-            this.showAlert(`${res.msg} Please Log In`);
+          if (res.isSuccess) {            
+            this.alertsService.alertModal(`${res.msg} Please Log In`, 'success');
             this.validations_form.reset();
             this.router.navigateByUrl('login');
           } 
@@ -169,15 +170,4 @@ export class RegisterPage implements OnInit {
     this.validations_form.reset();
     this.router.navigateByUrl('login');
   }
-
-  async showAlert(message) {
-    const alert = await this.alertController.create({
-      header: 'Successful register',
-      message,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  } 
-
 }

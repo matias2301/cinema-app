@@ -15,7 +15,7 @@ export class MoviesService {
   private moviePage = 1;
   public loading: boolean = false;
 
-  constructor( private http: HttpClient ) { }
+  constructor( private httpClient: HttpClient ) { }
 
   get params() {
     return {
@@ -31,7 +31,7 @@ export class MoviesService {
 
   getMovies():Observable<Movie[]> {
 
-    return this.http.get<MoviesResponse>(`${ this.baseUrl }/movie/now_playing`,{
+    return this.httpClient.get<MoviesResponse>(`${ this.baseUrl }/movie/now_playing`,{
       params: this.params
     }).pipe(
       map( (resp) => resp.results ),
@@ -42,22 +42,22 @@ export class MoviesService {
   }
 
 
-  findMovies( text: string ):Observable<Movie[]> {
+  // findMovies( text: string ):Observable<Movie[]> {
 
-    const params = {...this.params, page: '1', query: text };
+  //   const params = {...this.params, page: '1', query: text };
 
-    // https://api.themoviedb.org/3/search/movie
-    return this.http.get<MoviesResponse>(`${ this.baseUrl }/search/movie`, {
-      params
-    }).pipe(
-      map( resp => resp.results )
-    )
-  }
+  //   // https://api.themoviedb.org/3/search/movie
+  //   return this.httpClient.get<MoviesResponse>(`${ this.baseUrl }/search/movie`, {
+  //     params
+  //   }).pipe(
+  //     map( resp => resp.results )
+  //   )
+  // }
 
 
   getMovieDetail( id: string ) {
 
-    return this.http.get<MovieResponse>(`${ this.baseUrl }/movie/${ id }`, {
+    return this.httpClient.get<MovieResponse>(`${ this.baseUrl }/movie/${ id }`, {
       params: this.params
     }).pipe(
       catchError( err => of(null) )

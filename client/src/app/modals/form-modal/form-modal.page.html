@@ -1,0 +1,132 @@
+<ion-header class="ion-no-border">
+  <form    
+  [formGroup]="validations_form"
+  (ngSubmit)="add ? onSubmitAdd(validations_form.value) : onSubmitEdit(validations_form.value)"
+  >
+    <ion-toolbar color="dark">
+      <ion-title *ngIf="add">Add new favourite</ion-title>
+      <ion-title *ngIf="!add">Edit Movie</ion-title>
+
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()" icon-only>
+          <ion-icon
+            name="close"
+            color="danger"
+          ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      
+      <ion-buttons slot="end">
+        <ion-button
+          type="submit"
+          icon-only
+        >
+          <ion-icon          
+            name="checkmark"
+            color="success"
+          ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+    </ion-toolbar>
+  </form>
+</ion-header>
+
+<ion-content class="ion-no-padding" color="dark">
+  <ion-grid>
+    <form    
+      [formGroup]="validations_form"
+      (ngSubmit)="add ? onSubmitAdd(validations_form.value) : onSubmitEdit(validations_form.value)"
+    >
+      <ion-row>
+        <ion-item class="ion-no-padding" color="dark">
+          <ion-label
+            position="floating"
+            color="primary"
+          >Title</ion-label>
+  
+          <ion-input
+            type="text"        
+            formControlName="title"
+          ></ion-input>
+        </ion-item>
+      </ion-row>
+
+      <ion-row *ngIf="title_valid">
+        <ion-text class="error-message">
+          <span>This field is required</span>
+        </ion-text>
+      </ion-row>
+
+      <ion-row>
+        <ion-item class="ion-no-padding" color="dark">
+          <ion-label
+            position="floating"
+            color="primary"
+          >Overview</ion-label>
+  
+          <ion-textarea
+            rows="{{add ? '6' : '18' }}"
+            formControlName="overview"
+          ></ion-textarea>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="rate-release">
+        <ion-col *ngIf="add">
+          <ion-item class="ion-no-padding" color="dark">
+            <ion-label
+              position="floating"
+              color="primary"
+              class="rate"
+            >Rate</ion-label>
+
+            <ionic-rating-component #rating
+              activeIcon = "star"
+              defaultIcon = "star-outline"
+              halfIcon = "star-half"
+              activeColor = "#eeee09" 
+              defaultColor = "#eeee09"
+              halfStar = "true"
+              readonly="false"
+              rating="3"              
+              fontSize = "12px"
+              (ratingChanged)="onRatingChange($event)"
+            >          
+            </ionic-rating-component>
+          </ion-item>
+        </ion-col>
+
+        <ion-col>
+          <ion-item class="ion-no-padding" color="dark">
+            <ion-label
+              position="floating" 
+              color="primary"
+            >Release Date</ion-label>
+
+            <ion-datetime
+              displayFormat="DD/MM/YYYY"       
+              formControlName="release_date"
+            ></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="add">
+        <ion-input
+          type="file"          
+          accept="image/x-png,image/jpeg"
+          (change)="onFileChange($event)"       
+          class="fileInput"
+        ></ion-input>
+        <ion-label class="fileLabel"><ion-icon name="images"></ion-icon> Images</ion-label>
+      </ion-row>
+      <ion-row class="previousImg">
+        <ion-img *ngIf="fileToUpload" src={{previousUrl}}></ion-img>
+      </ion-row>
+
+
+    </form>
+  </ion-grid>
+
+</ion-content>

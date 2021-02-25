@@ -43,3 +43,9 @@ a:hover {
   --button-color:#ffffff;
   --height:50px;
 }
+
+.alert-class {  
+  --backdrop-opacity: 0.2;
+  --background: linear-gradient(90deg, rgb(173, 187, 177) 1%, rgb(199, 202, 202) 100%);
+  --height: 1000%;  
+}

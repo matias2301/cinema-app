@@ -20,6 +20,8 @@ app.use( express.json({ extended: true }));
 //routes
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/favs', require('./routes/favourites'));
+app.use('/api/images', require('./routes/images'));
 
 //listen port
 app.listen( PORT, () => {

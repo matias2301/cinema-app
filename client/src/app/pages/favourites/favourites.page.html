@@ -21,79 +21,97 @@
 
 <ion-content color="dark" [fullscreen]="true">
 
-  <ion-list class="ion-no-padding">    
-    <!-- style="padding:0px !important;" -->
+  <ion-spinner
+    *ngIf="spinner"
+    name="lines"
+    class="spinner"
+  ></ion-spinner>  
 
-    <ion-virtual-scroll [items]="dataList">
+  <ion-list *ngIf="movies.length > 0" class="ion-no-padding">
 
-    <ion-item-sliding *virtualItem="let item">
+    <ion-item-sliding #slidingItem *ngFor="let movie of movies; let i = index">
       <ion-item class="ion-no-padding" color="dark">
 
-        <!-- <ion-avatar slot="start">
-          <img src="assets/no-image.jpg">       
-        </ion-avatar>
-        <ion-label>
-          <h2>{{item.name}}</h2>
-          <h3>{{item.address}}</h3>
-          <p>{{item.intro}}</p>        
-        </ion-label> -->
-
         <ion-card>
-          <ion-grid class="ion-no-padding">
+          <ion-grid fixed class="ion-no-padding">
             <ion-row>
-              <ion-col size="6" class="ion-no-padding">              
-                <!-- <img src="assets/no-image.jpg" /> -->
-                <ion-img src="assets/no-image.jpg"></ion-img>
+              <ion-col size="6">                              
+                <ion-img [src]="movie.backdrop_path | noimage"></ion-img>
               </ion-col>
   
-              <ion-col size="6" class="ion-no-padding">
-                <ion-card-header>                  
-                  <ion-card-title>The Avengers</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  {{item.intro | slice:0:50}}
-                  <span *ngIf="item.intro.length > 50">...</span>
+              <ion-col size="6" class="colContent">
 
-                  <p class="rate">Rate</p>
+                <ion-card-header>                  
+                  <ion-card-title>{{ movie.title }}</ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>                  
+                  {{movie.overview | slice:0:45}}
+                  <span *ngIf="movie.overview.length > 35">...</span>
                 </ion-card-content>
+
+                <div class="rate">
+                  <p>Rate</p>
+                  <ionic-rating-component #rating
+                    activeIcon = "star"
+                    defaultIcon = "star-outline"
+                    activeColor = "#eeee09" 
+                    defaultColor = "#282828"                    
+                    readonly="false"
+                    rating="{{(movie.vote_average / 2)}}"
+                    fontSize = "12px"                                        
+                  >                  
+                  </ionic-rating-component>
+                </div>
+
               </ion-col>
 
             </ion-row>
           </ion-grid>
         </ion-card>     
 
-      </ion-item>  
+      </ion-item> 
 
       <ion-item-options style="margin-left: 15px !important;" side="start">
-        <ion-item-option class="optDelete" (click)="deleteMovie(item)" color="danger">
+        <ion-item-option class="optDelete" (click)="deleteFav(movie, slidingItem, i)" color="danger">
           <ion-icon slot="top" name="trash"></ion-icon>
           Delete        
         </ion-item-option>      
       </ion-item-options>
   
       <ion-item-options style="margin-right: 15px !important;" side="end">
-        <ion-item-option class="optEdit" (click)="modifyMovie(item)" color="success">
-          <ion-icon slot="top" name="create"></ion-icon>
+        <ion-item-option class="optEdit" (click)="editFav(movie, slidingItem)">
+          <ion-icon slot="top" name="pencil"></ion-icon>
           Edit
         </ion-item-option>
       </ion-item-options>
 
-    </ion-item-sliding>
-    </ion-virtual-scroll>
+    </ion-item-sliding>        
   </ion-list>
 
-  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button
-      (click)="addFavourite()"
-      color="light"
+  <ion-fab
+    vertical="bottom"
+    horizontal="center"
+    slot="fixed"
+  >
+    <ion-badge
+      *ngIf="movies.length === 0 && !spinner"
+      class="emptyFav"
     >
+      Add new movies to Favourites
+    </ion-badge>
+    <ion-fab-button      
+      color="light"
+      (click)="addFavourite()"
+    >
+    
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
 
 </ion-content>

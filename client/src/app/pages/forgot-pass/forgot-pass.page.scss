@@ -8,19 +8,17 @@ ion-toolbar {
   }
   
   ion-content {    
-  
     h1 {
       text-align: center;
       font-weight: 700;
-      font-size: 26px;
+      font-size: 1.3rem;
       color: #ffffff;
       margin-bottom: 15%;
     }
   
     .form {
       margin-top: 15%;
-      padding-left: 30px;
-      padding-right: 30px;
+      padding: 0 35px;
   
       .submit-btn {
         margin-top: 35px;
