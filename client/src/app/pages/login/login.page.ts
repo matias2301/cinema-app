@@ -32,11 +32,11 @@ export class LoginPage implements OnInit {
   }  
 
   get username_valid() {
-    return this.validations_form.get('email').invalid && (!this.validations_form.get('email').dirty && this.validations_form.get('email').touched);
+    return this.validations_form.get('email').invalid && (this.validations_form.get('email').dirty || this.validations_form.get('email').touched);
   }
 
   get password_valid() {
-    return this.validations_form.get('password').invalid && (!this.validations_form.get('password').dirty && this.validations_form.get('password').touched);
+    return this.validations_form.get('password').invalid && (this.validations_form.get('password').dirty || this.validations_form.get('password').touched);
   }
 
   createForm() {

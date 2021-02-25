@@ -38,19 +38,19 @@ export class RegisterPage implements OnInit {
   }
 
   get name_valid() {
-    return this.validations_form.get('name').invalid && (!this.validations_form.get('name').dirty && this.validations_form.get('name').touched);
+    return this.validations_form.get('name').invalid && (this.validations_form.get('name').dirty || this.validations_form.get('name').touched);
   }
 
   get username_valid() {
-    return this.validations_form.get('email').invalid && (!this.validations_form.get('email').dirty && this.validations_form.get('email').touched);
+    return this.validations_form.get('email').invalid && (this.validations_form.get('email').dirty || this.validations_form.get('email').touched);
   }
 
   get password_valid() {
-    return this.validations_form.get('matching_passwords').get('password').invalid && (!this.validations_form.get('matching_passwords').get('password').dirty && this.validations_form.get('matching_passwords').get('password').touched);
+    return this.validations_form.get('matching_passwords').get('password').invalid && (this.validations_form.get('matching_passwords').get('password').dirty || this.validations_form.get('matching_passwords').get('password').touched);
   }
 
   get confirmPass_valid() {
-    return this.validations_form.get('matching_passwords').get('confirmPass').invalid && (!this.validations_form.get('matching_passwords').get('confirmPass').dirty && this.validations_form.get('matching_passwords').get('confirmPass').touched);
+    return this.validations_form.get('matching_passwords').get('confirmPass').invalid && (this.validations_form.get('matching_passwords').get('confirmPass').dirty || this.validations_form.get('matching_passwords').get('confirmPass').touched);
   }
 
   get matchingPass_valid() {
