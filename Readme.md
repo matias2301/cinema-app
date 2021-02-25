@@ -6,7 +6,7 @@ Project built with Ionic 5 and Angular 11 - in the frontend side - and Node Js i
 It includes:
 - [x] Login
 - [x] Register
-- [] Forgot Password ( pending )
+- [ ] Forgot Password ( pending )
 - [ ] SideMenu
 - [x] Fetch Movies information from TMDB api
 - [x] CRUD favourites movies, once added as favourite from TMDB
