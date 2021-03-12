@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonInfiniteScroll, IonVirtualScroll } from '@ionic/angular';
-import { IonContent, IonItemSliding } from '@ionic/angular';
+import { IonContent, IonItemSliding, Platform } from '@ionic/angular';
 
 import { MoviesService } from '../../services/movies.service';
 import { AlertsService } from '../../services/alerts.service';
@@ -19,6 +19,7 @@ export class HomePage implements OnInit {
 
   movies: Movie[] = [];
   allMovies: Movie[] = [];  
+  desktop: boolean = false;
 
   public isLoggedIn: boolean;
   public searchBar: boolean = false;
@@ -39,12 +40,14 @@ export class HomePage implements OnInit {
     private moviesService: MoviesService,
     private alertsService: AlertsService,
     private favouritesService: FavouritesService,
-    private router: Router,    
+    private router: Router,
+    private plt: Platform  
   ) { }
 
   ngOnInit(): void {
 
     this.checkLoginState();
+    if(this.plt.width() > 389) this.desktop = true;
 
     this.moviesService.getMovies()
     .subscribe( movies => {      

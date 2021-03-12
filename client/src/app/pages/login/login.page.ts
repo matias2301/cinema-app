@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from  "@angular/router";
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
@@ -16,19 +16,22 @@ export class LoginPage implements OnInit {
   validations_form: FormGroup;
   error: boolean;
   msjError: string;
-
+  desktop: boolean = false;
+  
   constructor(
               private authService: AuthService,
               private alertsService: AlertsService,
               private router: Router,
               public formBuilder: FormBuilder,
-              private loadingController: LoadingController,                                                   
+              private loadingController: LoadingController,
+              private plt: Platform                                                   
              ){
               this.createForm();
               }
 
   ngOnInit() {
     this.checkLoginState();
+    if(this.plt.width() > 389) this.desktop = true;  
   }  
 
   get username_valid() {

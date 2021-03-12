@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonInfiniteScroll, IonVirtualScroll, ModalController } from '@ionic/angular';
-import { IonItemSliding } from '@ionic/angular';
+import { IonItemSliding, Platform } from '@ionic/angular';
 
 import { FavouritesService } from '../../services/favourites.service';
 
@@ -19,6 +19,7 @@ export class FavouritesPage implements OnInit {
 
   movies: FavResponse[] = [];
   spinner: boolean = false;
+  desktop: boolean = false;
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonVirtualScroll) virtualScroll: IonVirtualScroll;
@@ -27,14 +28,16 @@ export class FavouritesPage implements OnInit {
                 private favouritesService: FavouritesService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                public modalController: ModalController            
+                public modalController: ModalController,
+                private plt: Platform            
               ) {
                 this.activatedRoute.params.subscribe( () => {                  
                   this.loadFavourites();                  
                 })
               }
 
-  ngOnInit() {         
+  ngOnInit() {
+    if(this.plt.width() > 389) this.desktop = true;          
   }
 
   loadData(event) {

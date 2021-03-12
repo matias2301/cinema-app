@@ -33,7 +33,7 @@
 </ion-header>
 
 <ion-content class="ion-no-padding" color="dark">
-  <ion-grid>
+  <ion-grid class="main-container">
     <form    
       [formGroup]="validations_form"
       (ngSubmit)="add ? onSubmitAdd(validations_form.value) : onSubmitEdit(validations_form.value)"

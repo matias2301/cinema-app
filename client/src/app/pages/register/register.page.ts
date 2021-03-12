@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from  "@angular/router";
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 
 //Validators
 import { PasswordValidator } from '../../validators/password.validator';
@@ -22,19 +22,22 @@ export class RegisterPage implements OnInit {
   
   error: boolean;
   msjError: string;
+  desktop: boolean = false;
 
   constructor(              
               private authService: AuthService,
               private alertsService: AlertsService,
               private router: Router,
               public formBuilder: FormBuilder,              
-              private loadingController: LoadingController
+              private loadingController: LoadingController,
+              private plt: Platform 
              ) { 
               this.createForm();
              }
 
   ngOnInit() {
     this.checkLoginState();
+    if(this.plt.width() > 389) this.desktop = true;
   }
 
   get name_valid() {
