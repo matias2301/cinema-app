@@ -19,7 +19,7 @@
       </ion-button>
     </ion-buttons>
     
-    <ion-buttons *ngIf="edit===false" slot="end">
+    <ion-buttons *ngIf="edit===false && isLoggedIn" slot="end">
       <ion-button (click)="addFavourite(movie)" icon-only>
         <ion-icon slot="end" name="add-outline"></ion-icon>        
       </ion-button>
@@ -34,7 +34,7 @@
       <h5 class="ion-no-margin">{{ movie.title }}</h5>
     </ion-row>
     <ion-row class="row-poster">
-      <ion-img class="poster" [src]="movie.backdrop_path | noimage" [alt]="movie.title"></ion-img>
+      <ion-img class="poster" [src]="movie.backdrop_path | noimage"></ion-img>
     </ion-row>
     <ion-row>
       <ion-col class="rate">        

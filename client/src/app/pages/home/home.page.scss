@@ -59,6 +59,16 @@ ion-item:hover{
         margin-bottom: 0; 
     }
 }
+.badgeResults {
+    width: 100%;
+    padding: 10px;
+}
+// .badgeLoggedOut {
+//     width: 95%;
+//     padding: 10px;
+//     position: fixed;
+//     top: 470px;    
+// }
 .colContent {
     background-color: #c4c4c4;
 }
@@ -70,6 +80,6 @@ ion-icon {
     pointer-events: none;
 }
 ion-badge {
-position: relative;
-top: 10px;    
+    position: relative;
+    top: 10px;    
 }

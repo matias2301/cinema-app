@@ -21,6 +21,13 @@
             </ion-item>
           </ion-menu-toggle>
 
+          <ion-menu-toggle auto-hide="false">
+            <ion-item (click)="goToHome()">
+              <ion-icon slot="start" name="home"></ion-icon>
+              <ion-label> Home </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
           <ion-menu-toggle auto-hide="false" *ngIf="!isLoggedIn">
             <ion-item (click)="register()">
               <ion-icon slot="start" name="person-add"></ion-icon>

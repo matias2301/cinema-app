@@ -5,7 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -21,8 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/forgot-pass/forgot-pass.module').then( m => m.ForgotPassPageModule)
   },
   {
-    path: 'home',
-    canActivate: [AuthGuard],
+    path: 'home',    
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
@@ -31,10 +30,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/favourites/favourites.module').then( m => m.FavouritesPageModule)
   },
   {
-    path: 'details/:id',
-    canActivate: [AuthGuard],
+    path: 'details/:id',    
     loadChildren: () => import('./pages/details/details.module').then( m => m.DetailsPageModule)
-  },  {
+  },
+  {
     path: 'form-modal',
     loadChildren: () => import('./modals/form-modal/form-modal.module').then( m => m.FormModalPageModule)
   },

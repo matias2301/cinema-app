@@ -63,6 +63,7 @@
               <ion-input
                 type="password"            
                 formControlName="password"
+                (keyup.enter)="onSubmitLogin(validations_form.value)"
               ></ion-input>
             </app-show-hide-pass>                
         </ion-item>

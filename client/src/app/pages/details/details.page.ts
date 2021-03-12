@@ -6,6 +6,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 
 //services
 import { AlertsService } from '../../services/alerts.service';
+import { AuthService } from '../../services/auth.service';
 import { FavouritesService } from '../../services/favourites.service';
 import { PreviousRouteService } from '../../services/previous-route.service';
 
@@ -21,6 +22,7 @@ export class DetailsPage implements OnInit {
 
   // public movie: Movie;
   public movie: any;
+  public isLoggedIn: boolean;
   // private previousUrl: string;
   toastPresent: boolean;
   edit: boolean = false;
@@ -28,6 +30,7 @@ export class DetailsPage implements OnInit {
   constructor (
                 private activatedRoute: ActivatedRoute,                
                 private alertsService: AlertsService,
+                private authService: AuthService,
                 private favouritesService: FavouritesService,
                 private previousRouteService: PreviousRouteService,
                 private location: Location,
@@ -40,8 +43,7 @@ export class DetailsPage implements OnInit {
                   if(url === '/favourites'){
                     this.edit = true;
                   }              
-                });
-                if(!this.edit) this.displayToast();
+                });                
               }
 
   ngOnInit(): void {
@@ -54,13 +56,15 @@ export class DetailsPage implements OnInit {
     //   }
     //   this.movie = movie;
     // });
+    this.checkLoginState();
+    if(!this.edit && this.isLoggedIn) this.displayToast();
     this.movie = this.activatedRoute.snapshot.params; 
   }
 
   onRatingChange(rating: number, movie: Movie){    
     this.favouritesService.updateRating(rating, movie)
       .subscribe( res => {          
-        this.alertsService.alertModal(`Your rate to ${movie.title} is ${res.fav.vote_average}`, 'success')
+        this.alertsService.alertModal(`Your rate ${movie.title} with ${res.fav.vote_average}`, 'success')
       }, (err) => {
         this.alertsService.alertToast('Something went wrong', 'error');
       });
@@ -138,5 +142,16 @@ export class DetailsPage implements OnInit {
 
   deleteFav( movie: Movie ) {      
     this.favouritesService.deleteFavourite(movie);    
+  }
+
+  // CHECK LOGIN STATE
+  checkLoginState(){
+    this.authService.authSubject.subscribe( state => {
+      if (state) {
+        this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
+      }
+    });
   }
 }

@@ -71,7 +71,7 @@ export class AuthService {
         .then(() => {
           // this.storage.remove("EXPIRES_IN");
           this.authSubject.next(false);
-          this.router.navigateByUrl('login');
+          this.router.navigateByUrl('home');
         });
     }
 

@@ -1,8 +1,16 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="dark">
-    <ion-title>
+    <ion-title *ngIf="!searchBar">
         Movies
     </ion-title>
+
+    <ion-input
+      #input
+      *ngIf="searchBar"
+      placeholder="Search Movie"
+      color="tertiary"      
+      (keyup)="searchMovie(input.value)"                
+    ></ion-input>    
 
     <ion-buttons slot="start">
       <ion-button icon-only>
@@ -11,8 +19,11 @@
     </ion-buttons>
     
     <ion-buttons slot="end">
-      <ion-button icon-only>
-        <ion-icon slot="end" name="search"></ion-icon>
+      <ion-button (click)="showSearchBar()" *ngIf="!searchBar" icon-only>
+        <ion-icon slot="end" name="search"></ion-icon>        
+      </ion-button>
+      <ion-button (click)="showSearchBar()" *ngIf="searchBar">
+        <ion-icon slot="end" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -21,10 +32,23 @@
 
 <ion-content
   color="dark"
-  [fullscreen]="true"
+  [fullscreen]="true"  
 >
 
-  <ion-list class="ion-no-padding">        
+  <ion-spinner
+    *ngIf="loading"
+    name="lines"
+    class="spinner"
+  ></ion-spinner> 
+
+  <ion-badge
+    *ngIf="term.length > 0"
+    class="badgeResults"
+  >
+    Results for {{ term }}
+  </ion-badge>
+
+  <ion-list *ngIf="!loading" class="ion-no-padding">        
 
     <!-- <ion-virtual-scroll [items]="dataList"> -->
       <!-- <ion-item-sliding *virtualItem="let item"> -->
@@ -83,11 +107,18 @@
     <!-- </ion-virtual-scroll> -->
   </ion-list>
 
+  <!-- <ion-badge
+    *ngIf="!isLoggedIn"   
+    class="badgeLoggedOut"
+  >
+    LogIn to add Movies to Favourites
+  </ion-badge> -->
+
   <ion-fab    
     vertical="bottom"
     horizontal="end"    
     slot="fixed"
-  >
+  >      
     <ion-badge color="dark">Go Up</ion-badge>
     <ion-fab-button
       closeIcon="Go Up"

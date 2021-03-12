@@ -1,9 +1,11 @@
 import { Router } from '@angular/router';
-import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+
+import { AuthService } from './services/auth.service';
+import { AlertsService } from './services/alerts.service';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +15,7 @@ export class AppComponent {
 
   public isLoggedIn: boolean;
 
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    },
+  public appPages = [    
     {
       title: 'My Favourites',
       url: '/favourites',
@@ -31,6 +28,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,    
     private authService: AuthService,
+    private alertsService: AlertsService,
     private router: Router
   ) {
     this.initializeApp();
@@ -61,8 +59,13 @@ export class AppComponent {
     this.router.navigate(['login']);
   }
 
+  goToHome(){
+    this.router.navigate(['home']);
+  }
+
   logout(){
-    this.authService.logout();
+    this.authService.logout()
+      .then( () => this.alertsService.alertToast('You are logged out', 'error'));
   }
 
 }

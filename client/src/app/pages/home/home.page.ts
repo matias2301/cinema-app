@@ -5,6 +5,7 @@ import { IonContent, IonItemSliding } from '@ionic/angular';
 
 import { MoviesService } from '../../services/movies.service';
 import { AlertsService } from '../../services/alerts.service';
+import { AuthService } from '../../services/auth.service';
 import { FavouritesService } from '../../services/favourites.service';
 
 import { Movie } from '../../interfaces/movie-response';
@@ -17,30 +18,48 @@ import { Movie } from '../../interfaces/movie-response';
 export class HomePage implements OnInit {
 
   movies: Movie[] = [];
+  allMovies: Movie[] = [];  
+
+  public isLoggedIn: boolean;
+  public searchBar: boolean = false;
+  public loading: boolean = false;
+  public term: string = '';
 
   @ViewChild(IonContent) content: IonContent;
+  @ViewChild('input') searchInput: { setFocus: () => void; };
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonVirtualScroll) virtualScroll: IonVirtualScroll;
   
   constructor(
+    private authService: AuthService,
     private moviesService: MoviesService,
     private alertsService: AlertsService,
     private favouritesService: FavouritesService,
-    private router: Router
+    private router: Router,    
   ) { }
 
   ngOnInit(): void {
+
+    this.checkLoginState();
+
     this.moviesService.getMovies()
     .subscribe( movies => {      
-      this.movies = movies;      
+      this.allMovies = movies;
+      this.movies = this.allMovies;
     });
-  }
+  } 
 
   // ngOnDestroy() {
   //   this.moviesService.resetMoviePage();
   // }
 
-  loadData(event) {         
+  loadData(event) {
+
+      if (this.searchBar) {
+        event.target.disabled = true;
+        return
+      }
+      
       this.moviesService.getMovies()
         .subscribe( movies => {
             //Hide Infinite List Loader on Complete
@@ -50,12 +69,6 @@ export class HomePage implements OnInit {
             //Rerender Virtual Scroll List After Adding New Data
             // this.virtualScroll.checkEnd();
 
-            // App logic to determine if all data is loaded
-            // and disable the infinite scroll
-
-            // if (this.movies.length == 5) {
-            //   event.target.disabled = true;
-            // }
         });
   }
 
@@ -72,6 +85,13 @@ export class HomePage implements OnInit {
   }
 
   addFavourite( movie: Movie, slidingItem: IonItemSliding ) {
+
+    if( !this.isLoggedIn ) {
+      this.alertsService.alertModal('Only registered user can add movie to favourites', 'error')
+      .then(() => slidingItem.close());
+      return;
+    }
+
     const fav = {
       title: movie.title,
       overview: movie.overview,
@@ -88,6 +108,47 @@ export class HomePage implements OnInit {
       }, (err) => {
         this.alertsService.alertToast('Something went wrong', 'error');
       });    
+  }
+
+  searchMovie( term: string ){
+    
+    this.term = term;
+
+    if(term === ''){
+      this.movies = this.allMovies;
+      return
+    }
+    
+    this.loading = true;
+    this.moviesService.findMovies( term )
+      .subscribe( (movies: any) => {               
+          this.movies = movies;                 
+          this.loading = false;
+      });
+  }
+
+  showSearchBar(){    
+    this.searchBar = !this.searchBar;
+    
+    if( this.searchBar ){
+      setTimeout(() => {
+        this.searchInput.setFocus();  
+      }, 500);
+    } else {
+      this.term = '';
+      this.movies = this.allMovies;
+    }
+  }
+
+  // CHECK LOGIN STATE
+  checkLoginState(){
+    this.authService.authSubject.subscribe( state => {
+      if (state) {
+        this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
+      }
+    });
   }
 
 }

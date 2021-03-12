@@ -6,6 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NoimagePipe implements PipeTransform {
 
   transform(image: string): string {
+
+    if ( image == 'null') return './assets/no-image.jpg';
     
     if ( image ) {
       if(image.split('/')[0] === 'assets') {

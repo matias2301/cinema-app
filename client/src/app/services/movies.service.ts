@@ -41,19 +41,16 @@ export class MoviesService {
     );
   }
 
-
-  // findMovies( text: string ):Observable<Movie[]> {
-
-  //   const params = {...this.params, page: '1', query: text };
-
-  //   // https://api.themoviedb.org/3/search/movie
-  //   return this.httpClient.get<MoviesResponse>(`${ this.baseUrl }/search/movie`, {
-  //     params
-  //   }).pipe(
-  //     map( resp => resp.results )
-  //   )
-  // }
-
+  findMovies( term: string ):Observable<Movie[]> {
+    
+    const params = {...this.params, page: '1', query: term };
+    
+    return this.httpClient.get<MoviesResponse>(`${ this.baseUrl }/search/movie`, {
+      params
+    }).pipe(
+      map( resp => resp.results )
+    )
+  }
 
   getMovieDetail( id: string ) {
 
