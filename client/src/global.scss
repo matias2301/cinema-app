@@ -25,6 +25,16 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+textarea {
+  --offset-bottom: auto!important;
+  --offset-right: auto!important;
+  --overflow: hidden;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 a {
   text-decoration: none;
 }

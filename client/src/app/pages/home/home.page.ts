@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonInfiniteScroll, IonVirtualScroll } from '@ionic/angular';
 import { IonContent, IonItemSliding } from '@ionic/angular';
@@ -24,6 +24,10 @@ export class HomePage implements OnInit {
   public searchBar: boolean = false;
   public loading: boolean = false;
   public term: string = '';
+
+  // @HostListener('ionScroll', ['$event']) onContentScroll($event) {
+  //   console.log($event)
+  // }
 
   @ViewChild(IonContent) content: IonContent;
   @ViewChild('input') searchInput: { setFocus: () => void; };
@@ -55,6 +59,7 @@ export class HomePage implements OnInit {
 
   loadData(event) {
 
+    console.log('event')
       if (this.searchBar) {
         event.target.disabled = true;
         return
