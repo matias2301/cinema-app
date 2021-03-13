@@ -6,15 +6,15 @@ import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable({
     providedIn: "root"
 })
-export class PreviousRouteService {
+export class RoutesService {
 
     private previousUrl: string;
     private currentUrl: string;
-    url = new BehaviorSubject('');
+    prevUrl = new BehaviorSubject('');
 
     constructor(private router: Router) {
 
-        this.currentUrl = this.router.url;
+        // this.currentUrl = this.router.url;
         // this.previousUrl = null;
 
         this.router.events
@@ -22,14 +22,13 @@ export class PreviousRouteService {
                     .subscribe((events: RoutesRecognized[]) => {
                         this.previousUrl = events[0].urlAfterRedirects;
                         this.currentUrl = events[1].urlAfterRedirects;                        
-                        this.url.next(this.previousUrl)
+                        this.prevUrl.next(this.previousUrl)
                     });
 
     }
 
-    // public getPreviousUrl() {
-    //     return this.url.next(this.currentUrl)
-    //     return this.previousUrl;
-    // }
+    public getCurrentUrl() {        
+        return this.currentUrl;
+    }
 
 };

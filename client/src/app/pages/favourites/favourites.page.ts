@@ -1,13 +1,9 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IonInfiniteScroll, IonVirtualScroll, ModalController } from '@ionic/angular';
-import { IonItemSliding, Platform } from '@ionic/angular';
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { FavouritesService } from '../../services/favourites.service';
 
-import { Movie } from '../../interfaces/movie-response';
 import { FavResponse } from '../../interfaces/favourite';
-
 import { FormModalPage } from '../../modals/form-modal/form-modal.page';
 
 @Component({
@@ -18,53 +14,29 @@ import { FormModalPage } from '../../modals/form-modal/form-modal.page';
 export class FavouritesPage implements OnInit {
 
   movies: FavResponse[] = [];
-  spinner: boolean = false;
-  desktop: boolean = false;
-
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  @ViewChild(IonVirtualScroll) virtualScroll: IonVirtualScroll;
+  loading: boolean = false;
+  term: String = '';
   
   constructor (                
                 private favouritesService: FavouritesService,
-                private activatedRoute: ActivatedRoute,
-                private router: Router,
-                public modalController: ModalController,
-                private plt: Platform            
+                private activatedRoute: ActivatedRoute,                
+                public modalController: ModalController,                       
               ) {
                 this.activatedRoute.params.subscribe( () => {                  
                   this.loadFavourites();                  
                 })
               }
 
-  ngOnInit() {
-    if(this.plt.width() > 389) this.desktop = true;          
-  }
-
-  loadData(event) {
+  ngOnInit() {         
   }
 
   loadFavourites() {
-    this.spinner = true;
+    this.loading = true;
     this.favouritesService.getFavourites()
     .subscribe( favs => {
       this.movies = favs.favourites;
-      this.spinner = false;      
+      this.loading = false;      
     });
-  }
-
-  toggleInfiniteScroll() {
-    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
-  }
-
-  deleteFav( movie: Movie, slidingItem: IonItemSliding, i: number ) {
-    this.movies.splice(i, 1);
-    this.favouritesService.deleteFavourite(movie);
-    slidingItem.close();    
-  }
-
-  editFav( movie: Movie, slidingItem: IonItemSliding ) {
-    this.router.navigate(['/details', movie._id, movie ]);
-    slidingItem.close();
   }
 
   async addFavourite() {

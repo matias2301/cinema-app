@@ -8,7 +8,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { AlertsService } from '../../services/alerts.service';
 import { AuthService } from '../../services/auth.service';
 import { FavouritesService } from '../../services/favourites.service';
-import { PreviousRouteService } from '../../services/previous-route.service';
+import { RoutesService } from '../../services/routes.service';
 
 import { FormModalPage } from '../../modals/form-modal/form-modal.page';
 import { Movie } from '../../interfaces/movie-response';
@@ -21,9 +21,8 @@ import { Movie } from '../../interfaces/movie-response';
 export class DetailsPage implements OnInit {
 
   // public movie: Movie;
-  public movie: any;
-  public isLoggedIn: boolean;
-  // private previousUrl: string;
+  movie: any;
+  isLoggedIn: boolean;  
   toastPresent: boolean;
   edit: boolean = false;
 
@@ -32,15 +31,15 @@ export class DetailsPage implements OnInit {
                 private alertsService: AlertsService,
                 private authService: AuthService,
                 private favouritesService: FavouritesService,
-                private previousRouteService: PreviousRouteService,
+                private routesService: RoutesService,
                 private location: Location,
                 public toastController: ToastController,
                 public modalController: ModalController
               ) {
                 // this.previousUrl = this.previousRouteService.getPreviousUrl();
-                this.previousRouteService.url.subscribe( url => {                  
+                this.routesService.prevUrl.subscribe( prevUrl => {                  
                   
-                  if(url === '/favourites'){
+                  if(prevUrl === '/favourites'){
                     this.edit = true;
                   }              
                 });                
@@ -58,7 +57,7 @@ export class DetailsPage implements OnInit {
     // });
     this.checkLoginState();
     if(!this.edit && this.isLoggedIn) this.displayToast();
-    this.movie = this.activatedRoute.snapshot.params; 
+    this.movie = this.activatedRoute.snapshot.params;
   }
 
   onRatingChange(rating: number, movie: Movie){    

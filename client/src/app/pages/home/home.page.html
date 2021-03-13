@@ -9,7 +9,7 @@
       *ngIf="searchBar"
       placeholder="Search Movie"
       color="tertiary"      
-      (keyup)="searchMovie(input.value)"                
+      (keyup)="searchMovie(input.value)" 
     ></ion-input>    
 
     <ion-buttons slot="start">
@@ -34,94 +34,21 @@
   color="dark"
   [fullscreen]="true"  
 >
-<!-- [scrollEvents]="true" -->
-  <div class="main-container">
-    <ion-spinner
-      *ngIf="loading"
-      name="lines"
-      class="spinner"
-    ></ion-spinner> 
 
-    <ion-badge
-      *ngIf="term.length > 0"
-      class="badgeResults"
-    >
-      Results for {{ term }}
-    </ion-badge>
-
-    <ion-list *ngIf="!loading" class="ion-no-padding">        
-
-      <!-- <ion-virtual-scroll [items]="dataList"> -->
-        <!-- <ion-item-sliding *virtualItem="let item"> -->
-
-      <ion-item-sliding #slidingItem *ngFor="let movie of movies">
-        <ion-item (click)="onMovieClick( movie )" class="ion-no-padding" color="dark">
-
-          <ion-card>
-            <ion-grid fixed class="ion-no-padding">
-              <ion-row>
-                <ion-col size="6">                              
-                  <ion-img [src]="movie.backdrop_path | noimage"></ion-img>
-                </ion-col>
-    
-                <ion-col size="6" class="colContent">
-
-                  <ion-card-header>                  
-                    <ion-card-title>{{ movie.title }}</ion-card-title>
-                  </ion-card-header>
-
-                  <ion-card-content>                    
-                    {{ this.desktop ? (movie.overview | slice:0:200) : (movie.overview | slice:0:45) }}
-                    <span *ngIf="movie.overview.length > 35">...</span>
-                  </ion-card-content>
-
-                  <div class="rate">
-                    <p>Rate</p>
-                    <ionic-rating-component #rating
-                      activeIcon = "star"
-                      defaultIcon = "star-outline"
-                      activeColor = "#eeee09" 
-                      defaultColor = "#282828"                    
-                      readonly="true"
-                      rating="{{(movie.vote_average / 2)}}"
-                      fontSize = "12px"                                        
-                    >                  
-                    </ionic-rating-component>
-                  </div>
-
-                </ion-col>
-
-              </ion-row>
-            </ion-grid>
-          </ion-card>     
-
-        </ion-item>
-    
-        <ion-item-options style="margin-right: 15px !important;" side="end">
-          <ion-item-option class="optAdd" (click)="addFavourite(movie, slidingItem)">
-            <ion-icon slot="top" name="create"></ion-icon>
-            Add
-          </ion-item-option>
-        </ion-item-options>
-
-      </ion-item-sliding>
-      <!-- </ion-virtual-scroll> -->
-    </ion-list>
-  </div>
-  <!-- <ion-badge
-    *ngIf="!isLoggedIn"   
-    class="badgeLoggedOut"
-  >
-    LogIn to add Movies to Favourites
-  </ion-badge> -->
+  <app-card
+    [movies]="movies"
+    [term]="term"
+    [loading]="loading"
+  ></app-card>
 
   <ion-fab    
     vertical="bottom"
     horizontal="{{this.desktop ? 'center' : 'end'}}"
     slot="fixed"         
-  >      
-  <!-- [ngClass]="{'centerFav': this.desktop}"  -->
-    <ion-badge color="dark">Go Up</ion-badge>
+  >        
+    <ion-badge
+      color="dark"
+    >Go Up</ion-badge>
     <ion-fab-button
       closeIcon="Go Up"
       size="small"

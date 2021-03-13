@@ -1,0 +1,92 @@
+<div class="main-container" *ngIf="movies">
+  <ion-spinner
+    *ngIf="loading"
+    name="lines"
+    class="spinner"
+  ></ion-spinner> 
+
+  <ion-badge
+    *ngIf="term.length > 0"
+    class="badgeResults"
+  >
+    Results for {{ term }}
+  </ion-badge>
+
+  <!-- <ion-list *ngIf="movies.length > 0" class="ion-no-padding"> from fav -->
+  <ion-list *ngIf="!loading" class="ion-no-padding">        
+
+    <!-- <ion-virtual-scroll [items]="dataList"> -->
+      <!-- <ion-item-sliding *virtualItem="let item"> -->
+
+    <ion-item-sliding #slidingItem *ngFor="let movie of movies; let i = index">
+      <ion-item (click)="onMovieClick( movie )" class="ion-no-padding" color="dark">
+        <!-- disable from fav? -->
+
+        <ion-card>
+          <ion-grid fixed class="ion-no-padding">
+            <ion-row>
+              <ion-col size="6">                              
+                <ion-img [src]="movie.backdrop_path | noimage"></ion-img>
+              </ion-col>
+  
+              <ion-col size="6" class="colContent">
+
+                <ion-card-header>                  
+                  <ion-card-title>{{ movie.title }}</ion-card-title>
+                </ion-card-header>
+
+                <ion-card-content>                    
+                  {{ this.desktop ? (movie.overview | slice:0:200) : (movie.overview | slice:0:45) }}
+                  <span *ngIf="movie.overview.length > 35">...</span>
+                </ion-card-content>
+
+                <div class="rate">
+                  <p>Rate</p>
+                  <ionic-rating-component #rating
+                    activeIcon = "star"
+                    defaultIcon = "star-outline"
+                    activeColor = "#eeee09" 
+                    defaultColor = "#282828"                    
+                    readonly="true"
+                    rating="{{(movie.vote_average / 2)}}"
+                    fontSize = "12px"                                        
+                  >                  
+                  </ionic-rating-component>
+                </div>
+
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
+        </ion-card>     
+
+      </ion-item>
+  
+      <!-- Enable at Home -->
+      <ion-item-options *ngIf="currentUrl==='home'" style="margin-right: 15px !important;" side="end">
+        <ion-item-option class="optAdd" (click)="addFavourite(movie, slidingItem)">
+          <ion-icon slot="top" name="create"></ion-icon>
+          Add
+        </ion-item-option>
+      </ion-item-options>
+      <!-- ------------- -->
+
+      <!-- Enable at Favourite -->
+      <ion-item-options *ngIf="currentUrl==='favourites'" style="margin-left: 15px !important;" side="start">
+        <ion-item-option class="optDelete" (click)="deleteFav(movie, slidingItem, i)" color="danger">
+          <ion-icon slot="top" name="trash"></ion-icon>
+          Delete        
+        </ion-item-option>      
+      </ion-item-options>
+  
+      <ion-item-options *ngIf="currentUrl==='favourites'" style="margin-right: 15px !important;" side="end">
+        <ion-item-option class="optEdit" (click)="editFav(movie, slidingItem)">
+          <ion-icon slot="top" name="pencil"></ion-icon>
+          Edit
+        </ion-item-option>
+      </ion-item-options>
+      <!-- ------------- -->
+
+    </ion-item-sliding>    
+  </ion-list>
+</div>

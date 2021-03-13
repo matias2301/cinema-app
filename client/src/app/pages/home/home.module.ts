@@ -3,22 +3,21 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
+import { PipesModule } from '../../pipes/pipes.module';
 import { HomePageRoutingModule } from './home-routing.module';
-
 import { HomePage } from './home.page';
-import { PipesModule } from 'src/app/pipes/pipes.module';
-import { IonicRatingComponentModule,  } from 'ionic-rating-component';
+import { CardComponent } from '../../components/card/card.component';
+import { IonicRatingComponentModule } from 'ionic-rating-component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,    
-    IonicModule,
-    PipesModule,
-    IonicRatingComponentModule,    
-    HomePageRoutingModule,    
+    IonicModule, 
+    PipesModule,             
+    HomePageRoutingModule, 
+    IonicRatingComponentModule,   
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, CardComponent]
 })
 export class HomePageModule {}

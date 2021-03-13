@@ -1,0 +1,76 @@
+ion-card-content {
+    font-size: 10px;
+    text-align: center;
+    padding: 0 5px;
+    color: #282828; 
+}
+ion-item-sliding {
+    background-color: #222428;
+}
+ion-item-option {    
+    width: 75px !important;
+    margin: 5px 0;
+}
+ion-card {    
+    margin: 0;
+    height: 20vh;
+    border-radius: 10px;
+}
+ion-card-header {
+    padding: 8px 10px;
+    // margin-bottom: 1px;    
+}
+ion-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+ion-img {
+    object-fit:cover;
+    height: 20vh;  
+}
+ion-item{
+    --inner-padding-end: 0px;
+    --padding-start:0px;
+    // margin-left: 15px;
+    // margin-right: 15px;
+    margin: 5px 15px;
+    border-radius: 10px !important;    
+}
+ion-item:hover{
+    cursor: pointer;
+}
+.rate {
+    position: absolute;
+    bottom: 0;
+    text-align: start;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    p {
+        font-size: 10px;
+        font-weight: 700;
+        color: #282828;
+        margin-bottom: 0; 
+    }
+}
+.badgeResults {
+    width: 100%;
+    padding: 10px;
+}
+.colContent {
+    background-color: #c4c4c4;
+}
+.optAdd {
+    border-radius: 0 10px 10px 0 !important;
+    background-color: #4cbb8d;
+}
+.optEdit {
+    border-radius: 0 10px 10px 0 !important;
+    background-color: #4cbb8d;
+}
+.optDelete {
+    border-radius: 10px 0 0 10px !important;
+}

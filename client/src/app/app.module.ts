@@ -17,7 +17,6 @@ import { FooterModule } from './components/footer/footer.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
