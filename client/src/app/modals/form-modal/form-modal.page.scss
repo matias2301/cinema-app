@@ -9,16 +9,18 @@ ion-input {
     color: #e2e2e2;
 }
 ion-textarea {
-    color: #e2e2e2;
-    padding: 10px;
+    color: #e2e2e2;    
     font-size: 15px;
     text-align: center;    
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
 }
 ion-datetime {    
     text-align: right;
     color: #e2e2e2;
+}
+.title, .textarea {
+    --margin: 0;    
+    width: 500px;
+    padding: 5px 10px;
 }
 .error-message {
     color: #cf322c;    

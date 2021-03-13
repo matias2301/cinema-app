@@ -18,13 +18,13 @@ import { Location } from '@angular/common';
 })
 export class CardComponent implements OnInit {
 
-  desktop: Boolean = false;
-  isLoggedIn: Boolean;
-  currentUrl: String;
+  desktop: boolean = false;
+  isLoggedIn: boolean;
+  currentUrl: string;  
 
   @Input("movies") movies: Movie[];
-  @Input("term") term: String;
-  @Input("loading") loading: Boolean[];  
+  @Input("term") term: string;
+  @Input("loading") loading: boolean[];  
 
   constructor(
     private authService: AuthService,    
@@ -37,8 +37,9 @@ export class CardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.checkLoginState();    
+    this.checkLoginState();
     if(this.plt.width() > 389) this.desktop = true;
+
     this.currentUrl = this.location.path().split('/')[1];       
   }
   

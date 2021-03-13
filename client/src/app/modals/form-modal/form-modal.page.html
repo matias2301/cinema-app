@@ -33,44 +33,50 @@
 </ion-header>
 
 <ion-content class="ion-no-padding" color="dark">
-  <ion-grid class="main-container">
+  <ion-grid>
     <form    
       [formGroup]="validations_form"
-      (ngSubmit)="add ? onSubmitAdd(validations_form.value) : onSubmitEdit(validations_form.value)"
+      (ngSubmit)="add ? onSubmitAdd(validations_form.value) : onSubmitEdit(validations_form.value)"            
     >
-      <ion-row>
-        <ion-item class="ion-no-padding" color="dark">
-          <ion-label
-            position="floating"
-            color="primary"
-          >Title</ion-label>
+    <ion-row>
+      <ion-item
+        [ngClass]="{'title': desktop, 'ion-no-padding': !desktop }"
+        color="dark"
+      >                
+        <ion-label
+          position="floating"
+          color="primary"
+        >Title</ion-label>
   
-          <ion-input
-            type="text"        
-            formControlName="title"
-          ></ion-input>
-        </ion-item>
-      </ion-row>
-
-      <ion-row *ngIf="title_valid">
-        <ion-text class="error-message">
-          <span>This field is required</span>
-        </ion-text>
-      </ion-row>
-
-      <ion-row>
-        <ion-item class="ion-no-padding" color="dark">
-          <ion-label
-            position="floating"
-            color="primary"
-          >Overview</ion-label>
+        <ion-input
+          type="text"        
+          formControlName="title"
+        ></ion-input>
+      </ion-item>
+    </ion-row>
   
-          <ion-textarea
-            rows="{{add ? '6' : '18' }}"
-            formControlName="overview"
-          ></ion-textarea>
-        </ion-item>
-      </ion-row>
+    <ion-row *ngIf="title_valid">
+      <ion-text class="error-message">
+        <span>This field is required</span>
+      </ion-text>
+    </ion-row>
+  
+    <ion-row>
+      <ion-item
+        [ngClass]="{'textarea': desktop, 'ion-no-padding': !desktop }"
+        color="dark"
+      >          
+        <ion-label
+          position="floating"
+          color="primary"
+        >Overview</ion-label>
+  
+        <ion-textarea
+          rows="{{add ? '6' : '18' }}"
+          formControlName="overview"
+        ></ion-textarea>
+      </ion-item>
+    </ion-row>
 
       <ion-row class="rate-release">
         <ion-col *ngIf="add">

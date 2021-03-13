@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, Platform } from '@ionic/angular';
 
 import { FavouritesService } from '../../services/favourites.service';
 import { AlertsService } from '../../services/alerts.service';
@@ -17,6 +17,7 @@ export class FormModalPage implements OnInit {
   fileToUpload: File = null;
   rating: number = 6;
   previousUrl: any;
+  desktop: boolean = false;
 
   @Input() id: number;
   @Input() title: string;
@@ -29,8 +30,10 @@ export class FormModalPage implements OnInit {
                 public modalCtrl: ModalController,
                 private favouritesService: FavouritesService,                
                 private alertsService: AlertsService,
-                public formBuilder: FormBuilder,  
-              ) {                
+                public formBuilder: FormBuilder,
+                private plt: Platform,
+              ) { 
+                if(this.plt.width() > 389) this.desktop = true;               
                 this.createForm();                
               }
 

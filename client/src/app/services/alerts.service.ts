@@ -1,21 +1,37 @@
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertsService {
 
-  constructor (
-                private alertController: AlertController, 
-              ) { }
+  desktop: boolean = false;
+  targetAlert: string;
 
-    async alertModal(message, icon) {
+  constructor (
+                private alertController: AlertController,
+                private plt: Platform,
+              ) {
+                if(this.plt.width() > 389) {
+                  this.desktop = true;                               
+                  this.targetAlert = 'main';
+                }
+               }
+
+    async alertModal(message, icon) {      
       await Swal.fire({
         // title: title,
-        text: message,
+        text: message,        
         icon: icon,
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        target: this.desktop ? document.getElementById(this.targetAlert) : "body",
         heightAuto: false,
         width: 400,
         timer: 3500,
@@ -27,7 +43,11 @@ export class AlertsService {
       const Toast = Swal.mixin({
         toast: true,
         position: 'top',
-        width: 400,
+        width: this.desktop ? 600 : 400,
+        customClass: {
+          container: this.desktop ? 'position-absolute' : null
+        },
+        target: this.desktop ? document.getElementById(this.targetAlert) : "body",
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
