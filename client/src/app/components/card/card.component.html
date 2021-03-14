@@ -35,7 +35,9 @@
                   <ion-card-title>{{ movie.title }}</ion-card-title>
                 </ion-card-header>
 
-                <ion-card-content>                    
+                <ion-card-content
+                  [ngStyle]="{'font-size': this.desktop ? '.7rem' : '.6rem'}"
+                >                          
                   {{ this.desktop ? (movie.overview | slice:0:200) : (movie.overview | slice:0:45) }}
                   <span *ngIf="movie.overview.length > 35">...</span>
                 </ion-card-content>
@@ -72,7 +74,7 @@
       <!-- ------------- -->
 
       <!-- Enable at Favourite -->
-      <ion-item-options *ngIf="currentUrl==='favourites'" style="margin-left: 15px !important;" side="start">
+      <ion-item-options *ngIf="currentUrl==='favourites'" style="margin-left: 15px !important;" side="start" (ionSwipe)="deleteFav(movie, slidingItem, i)">
         <ion-item-option class="optDelete" (click)="deleteFav(movie, slidingItem, i)" color="danger">
           <ion-icon slot="top" name="trash"></ion-icon>
           Delete        
