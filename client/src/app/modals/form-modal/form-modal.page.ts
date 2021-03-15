@@ -15,7 +15,7 @@ export class FormModalPage implements OnInit {
 
   validations_form: FormGroup;
   fileToUpload: File = null;
-  rating: number = 6;
+  rating: string = '6';
   previousUrl: any;
   desktop: boolean = false;
 
@@ -24,6 +24,9 @@ export class FormModalPage implements OnInit {
   @Input() overview: string;
   @Input() release_date: Date;
   @Input() add: boolean;
+
+  AUTH_SERVER_ADDRESS: string = 'http://localhost:4000'; 
+  // AUTH_SERVER_ADDRESS: string = 'https://lit-forest-87722.herokuapp.com';
 
   constructor (
                 public navParams: NavParams,
@@ -102,8 +105,9 @@ export class FormModalPage implements OnInit {
             if(res.file) {
               fav = {
                 ...fav,                
-                backdrop_path: `assets/uploads/${res.file}`
-              }              
+                backdrop_path: res.file
+              }             
+              
               this.callAddService(fav, values);
             }
           }, (err) => {
@@ -149,7 +153,8 @@ export class FormModalPage implements OnInit {
     await this.modalCtrl.dismiss(values);
   }
 
-  onRatingChange(rating: number){
-    this.rating = rating * 2;
+  onRatingChange(rating: string){
+    let ratingNum = Number(rating);
+    this.rating = (ratingNum * 2).toString();
   }
 }

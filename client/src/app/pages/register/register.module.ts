@@ -7,15 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { RegisterPageRoutingModule } from './register-routing.module';
 
 import { RegisterPage } from './register.page';
-import { InputModule } from '../../components/input/input.module';
 import { ShowHidePassModule } from '../../components/show-hide-pass/show-hide-pass-module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    InputModule,
+    IonicModule,    
     ReactiveFormsModule,
     ShowHidePassModule,
     RegisterPageRoutingModule

@@ -23,7 +23,7 @@ export interface Movie {
     original_title:    string;
     genre_ids:         number[];
     title:             string;
-    vote_average:      number;
+    vote_average:      string;
     overview:          string;
     release_date:      Date;
     _id:               number  
@@ -59,7 +59,7 @@ export interface MovieResponse {
     tagline:               string;
     title:                 string;
     video:                 boolean;
-    vote_average:          number;
+    vote_average:          string;
     vote_count:            number;
 }
 

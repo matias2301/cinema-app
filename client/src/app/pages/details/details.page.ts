@@ -60,8 +60,10 @@ export class DetailsPage implements OnInit {
     this.movie = this.activatedRoute.snapshot.params;
   }
 
-  onRatingChange(rating: number, movie: Movie){    
-    this.favouritesService.updateRating(rating, movie)
+  onRatingChange(rating: string, movie: Movie){
+
+    let ratingNum = Number(rating);
+    this.favouritesService.updateRating(ratingNum, movie)
       .subscribe( res => {          
         this.alertsService.alertModal(`Your rate ${movie.title} with ${res.fav.vote_average}`, 'success')
       }, (err) => {

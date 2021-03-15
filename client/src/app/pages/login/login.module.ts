@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
-import { InputModule } from '../../components/input/input.module';
 import { ShowHidePassModule } from '../../components/show-hide-pass/show-hide-pass-module';
 
 
@@ -15,8 +14,7 @@ import { ShowHidePassModule } from '../../components/show-hide-pass/show-hide-pa
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    InputModule,    
+    IonicModule,    
     ReactiveFormsModule,
     ShowHidePassModule,
     LoginPageRoutingModule

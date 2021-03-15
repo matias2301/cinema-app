@@ -10,6 +10,7 @@ import { FavouritesService } from '../../services/favourites.service';
 import { Movie } from '../../interfaces/movie-response';
 // import { RoutesService } from '../../services/routes.service';
 import { Location } from '@angular/common';
+import { FavResponse } from '../../interfaces/favourite';
 
 @Component({
   selector: 'app-card',
@@ -24,7 +25,7 @@ export class CardComponent implements OnInit {
 
   @Input("movies") movies: Movie[];
   @Input("term") term: string;
-  @Input("loading") loading: boolean[];  
+  @Input("loading") loading: boolean;  
 
   constructor(
     private authService: AuthService,    

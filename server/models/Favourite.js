@@ -12,7 +12,7 @@ const FavouriteSchema = mongoose.Schema({
         trim: true
     },
     vote_average: {
-        type: Number,
+        type: String,
         required: false,
     },
     release_date: {

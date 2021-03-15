@@ -7,6 +7,10 @@ router.post('/',
     imageController.uploadImage
 );
 
+router.get('/:image',
+    imageController.getImage
+);
+
 router.delete('/:image',
     imageController.deleteImage
 );

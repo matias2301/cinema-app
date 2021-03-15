@@ -1,7 +1,7 @@
 export interface Favourite {   
     title: string;
     overview: string;
-    vote_average: number;    
+    vote_average: string;    
     release_date: Date;
     customImg?: string;
 }

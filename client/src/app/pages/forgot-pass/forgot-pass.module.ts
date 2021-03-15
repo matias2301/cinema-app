@@ -7,14 +7,12 @@ import { IonicModule } from '@ionic/angular';
 import { ForgotPassPageRoutingModule } from './forgot-pass-routing.module';
 
 import { ForgotPassPage } from './forgot-pass.page';
-import { InputModule } from '../../components/input/input.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    InputModule,
+    IonicModule,    
     ReactiveFormsModule,
     ForgotPassPageRoutingModule
   ],

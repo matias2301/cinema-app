@@ -17,6 +17,7 @@ const ACCESS_TOKEN = 'auth-token';
 export class AuthService {
 
   AUTH_SERVER_ADDRESS: string = 'http://localhost:4000';
+  // AUTH_SERVER_ADDRESS: string = 'https://lit-forest-87722.herokuapp.com';
   authSubject = new BehaviorSubject(false);
 
   constructor(

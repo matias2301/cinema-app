@@ -5,23 +5,19 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { FavouritesPageRoutingModule } from './favourites-routing.module';
-
 import { FavouritesPage } from './favourites.page';
-import { PipesModule } from 'src/app/pipes/pipes.module';
-import { IonicRatingComponentModule,  } from 'ionic-rating-component';
 import { FormModalPageModule } from 'src/app/modals/form-modal/form-modal.module';
-import { CardComponent } from '../../components/card/card.component';
+import { CardModule } from '../../components/card/card.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    PipesModule,    
-    IonicRatingComponentModule,
+    IonicModule,    
+    CardModule,        
     FavouritesPageRoutingModule,
     FormModalPageModule
   ],
-  declarations: [FavouritesPage, CardComponent]
+  declarations: [FavouritesPage]
 })
 export class FavouritesPageModule {}

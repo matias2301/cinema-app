@@ -17,6 +17,7 @@ import { AlertsService } from './alerts.service';
 export class FavouritesService {
 
   AUTH_SERVER_ADDRESS: string = 'http://localhost:4000'; 
+  // AUTH_SERVER_ADDRESS: string = 'https://lit-forest-87722.herokuapp.com';
 
   constructor (
                 private httpClient: HttpClient,
@@ -99,7 +100,7 @@ export class FavouritesService {
       }
       
       delete updateMovie._id;
-      updateMovie.vote_average = rating * 2;
+      updateMovie.vote_average = (rating * 2).toString();
       
       return this.httpClient.put<any>(`${ this.AUTH_SERVER_ADDRESS }/api/favs/${movie._id}`, updateMovie)
         .pipe(

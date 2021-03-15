@@ -35,7 +35,7 @@
     slot="fixed"
   >
     <ion-badge
-      *ngIf="movies.length === 0 && !spinner"
+      *ngIf="movies.length === 0 && !loading"
       class="emptyFav"
     >
       Add new movies to Favourites

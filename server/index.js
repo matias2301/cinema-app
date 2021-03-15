@@ -9,13 +9,28 @@ const app = express();
 connectDB();
 
 //app port
-const PORT = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
+
+// Configure Cross Origin
+app.use((req, res, next) => {
+    // res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+    next();
+  });
 
 //enable cors
 app.use(cors());
 
 //enabled body-parser
 app.use( express.json({ extended: true }));
+
+app.use( express.static('uploads') );
 
 //routes
 app.use('/api/users', require('./routes/users'));
@@ -24,6 +39,6 @@ app.use('/api/favs', require('./routes/favourites'));
 app.use('/api/images', require('./routes/images'));
 
 //listen port
-app.listen( PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen( port, '0.0.0.0', () => {
+    console.warn(`Listening port ${port}`)    
 });

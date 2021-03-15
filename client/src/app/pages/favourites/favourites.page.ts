@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FavouritesService } from '../../services/favourites.service';
 
-import { FavResponse } from '../../interfaces/favourite';
 import { FormModalPage } from '../../modals/form-modal/form-modal.page';
+import { Movie } from '../../interfaces/movie-response';
 
 @Component({
   selector: 'app-favourites',
@@ -13,9 +13,9 @@ import { FormModalPage } from '../../modals/form-modal/form-modal.page';
 })
 export class FavouritesPage implements OnInit {
 
-  movies: FavResponse[] = [];
+  movies: Movie[] = [];
   loading: boolean = false;
-  term: String = '';
+  term: string = '';
   
   constructor (                
                 private favouritesService: FavouritesService,
@@ -49,8 +49,11 @@ export class FavouritesPage implements OnInit {
     });
       
     modal.onDidDismiss().then((newMovie) => {
-      if(newMovie.data) {                           
-        this.movies.push(newMovie.data);        
+      if(newMovie.data) {
+        this.movies = [
+          ...this.movies,
+          newMovie.data
+        ]                                         
       }
     });
 
