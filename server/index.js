@@ -30,7 +30,7 @@ app.use(cors());
 //enabled body-parser
 app.use( express.json({ extended: true }));
 
-app.use( express.static('uploads') );
+app.use( express.static('tmp') );
 
 //routes
 app.use('/api/users', require('./routes/users'));

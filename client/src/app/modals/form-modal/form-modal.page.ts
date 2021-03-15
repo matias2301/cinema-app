@@ -23,10 +23,7 @@ export class FormModalPage implements OnInit {
   @Input() title: string;
   @Input() overview: string;
   @Input() release_date: Date;
-  @Input() add: boolean;
-
-  AUTH_SERVER_ADDRESS: string = 'http://localhost:4000'; 
-  // AUTH_SERVER_ADDRESS: string = 'https://lit-forest-87722.herokuapp.com';
+  @Input() add: boolean;  
 
   constructor (
                 public navParams: NavParams,

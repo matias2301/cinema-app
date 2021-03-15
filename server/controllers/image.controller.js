@@ -10,7 +10,7 @@ exports.uploadImage = async (req, res, next) => {
         limits: { fileSize: 1024 * 1024 },
         storage: fileStorage = multer.diskStorage({
             destination: (req, file, cb) => {
-                cb(null, __dirname+'/../uploads')                
+                cb(null, __dirname+'/../tmp')                
             },
             filename: (req, file, cb) => {                
                 const extension = file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length)
@@ -41,7 +41,8 @@ exports.getImage = async (req, res, next) => {
     
     const { image } = req.params;  
 
-    var urlImage = path.resolve(__dirname, `../../server/uploads/${image}`);
+    var urlImage = path.resolve(__dirname, `../tmp/${image}`);
+    // var urlImage = path.resolve(__dirname, `../../server/uploads/${image}`);
     console.log(urlImage)  
 
     if (fs.existsSync(urlImage)) {
